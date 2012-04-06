@@ -1,0 +1,190 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class BaseAdapterClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init BaseAdapterClass");
+
+		class StarCLEBaseAdapter extends BaseAdapter implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};			
+			public Object GetAndroidObject(){return this;}
+			public StarCLEBaseAdapter(Context ctx,StarObjectClass In_Object){
+				super();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public int  getCount(){
+				StarObjectClass adapter = BasicAndroidObject.getStarObject();
+				if( adapter == null )
+					return 0;
+				int Count = adapter._Toint(adapter._Call("getCount"));
+				WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "get Adapter count "+Count);
+				return Count;
+			}
+			public Object getItem(int position){
+				StarObjectClass adapter = BasicAndroidObject.getStarObject();
+				if( adapter == null )
+					return null;
+				return adapter._Call("getItem",position);
+			}
+			public long  getItemId(int position){
+				StarObjectClass adapter = BasicAndroidObject.getStarObject();
+				long value = adapter._Toint(adapter._Call("getItemId",position));
+				WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "Adapter getItemId "+value+" position= "+position);
+				return value;
+			}
+			public int  getItemViewType(int position){
+				StarObjectClass adapter = BasicAndroidObject.getStarObject();
+				return adapter._Toint(adapter._Call("getItemViewType",position));
+			}
+			public View  getView(int position, View convertView, ViewGroup parent){
+				StarObjectClass adapter = BasicAndroidObject.getStarObject();
+				StarObjectClass starconvertView,starParent;
+				if( convertView != null )
+					starconvertView = (((BasicAndroidInterface)convertView).getBasicAndroid()).getStarObject();
+				else
+					starconvertView = null;
+				if( parent != null )
+					starParent = (((BasicAndroidInterface)parent).getBasicAndroid()).getStarObject();
+				else
+					starParent = null;				
+				StarObjectClass view = (StarObjectClass)adapter._Call("getView",position,starconvertView,starParent);
+				if( view == null )
+					return null;
+				if( starconvertView != null ){
+					if( !(starconvertView._GetStr("_ID").equals(view._GetStr("_ID"))) )
+						view._LockGC();
+				}								
+				View androidview = (View)WrapAndroidClass.GetAndroidObject(view,"AndroidObject");
+				view._Call("decAndroidRef");  /*--change to weak ref--*/
+				return androidview;
+			}
+			public int  getViewTypeCount(){
+				StarObjectClass adapter = BasicAndroidObject.getStarObject();
+				return adapter._Toint(adapter._Call("getCount"));
+			}
+			public boolean  isEmpty(){
+				StarObjectClass adapter = BasicAndroidObject.getStarObject();
+				return adapter._Tobool(adapter._Call("getCount"));
+			}			
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+
+        /* BaseAdapterClass Body */
+        Service._GetObject("BaseAdapterClass")._Assign(new StarObjectClass(){
+        	/* _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+			    self._Call("onCreateAndroid");
+			    WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "starobject : "+self+" is created");
+        		return null;
+        	} 
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEBaseAdapter view = new StarCLEBaseAdapter((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)view);
+        	}		        	
+        	public Object[] _OnDestroy(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass adapterclass = (StarObjectClass)Service._Get("AdapterClass");
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)null);       
+           		return null;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int getCount(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int getCount(StarObjectClass self){return 0;};
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public Object getItem(StarObjectClass self,int position) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public Object getItem(StarObjectClass self,int position){return position;};
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getItemId(StarObjectClass self,int position) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public int  getItemId(StarObjectClass self,int position){return position;};
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getItemViewType(StarObjectClass self,int position) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */             	
+        	public int  getItemViewType(StarObjectClass self,int position){return position;};
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public StarObjectClass  getView(StarObjectClass self,int position, StarObjectClass convertView, StarObjectClass parent) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public StarObjectClass  getView(StarObjectClass self,int position, StarObjectClass convertView, StarObjectClass parent){return null;};
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getViewTypeCount(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public int  getViewTypeCount(StarObjectClass self){return 1;};
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isEmpty(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */            	
+        	public boolean  isEmpty(StarObjectClass self){return true;};
+        });       
+        
+		return true;
+	}	
+}

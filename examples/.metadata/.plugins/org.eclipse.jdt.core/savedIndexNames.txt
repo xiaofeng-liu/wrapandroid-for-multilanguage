@@ -1,0 +1,11 @@
+INDEX VERSION 1.126+D:\Work\starcore\core\service\wrapforscript.android\workspace\examples\.metadata\.plugins\org.eclipse.jdt.core
+3750446453.index
+2166815179.index
+2717169161.index
+3869391230.index
+3436482660.index
+1325311207.index
+3025312845.index
+4026652889.index
+2265807023.index
+1300066515.index

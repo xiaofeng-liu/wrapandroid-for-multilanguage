@@ -1,0 +1,311 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Canvas;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class ViewGroupClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init ViewGroupClass");
+		
+		class StarCLEViewGroup extends ViewGroup implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;     
+			private StarObjectClass BasicCanvasObject;	
+			private List<Object> RefList;
+			public StarCLEViewGroup(Context ctx,StarObjectClass In_Object){
+				super(ctx);
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);	
+				BasicCanvasObject = null;
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};  
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "ViewGroupClass not support SetAndroidObject" );}
+			public void AddRef(Object object){RefList.add(object);}
+			public void DelRef(Object object){RefList.remove(object);}
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+				if( BasicCanvasObject != null )
+					BasicCanvasObject._Free();
+			}	
+			@Override
+		     protected void onDraw(Canvas canvas){
+				StarObjectClass self = BasicAndroidObject.getStarObject();
+				StarObjectClass definedclass = self._DefinedClass("onDraw");
+				StarObjectClass basicclass = Service._GetObject("ViewGroupClass");
+				if( definedclass._GetStr("_ID").equals(basicclass._GetStr("_ID")) ){
+					super.onDraw(canvas);
+					return;
+				}
+				if( BasicCanvasObject == null )
+					BasicCanvasObject = Service._GetObject("CanvasClass")._New();
+				StarCLECanvas star_canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(BasicCanvasObject,"AndroidObject");
+				star_canvas.SetAndroidObject(canvas);
+				self._Call("onDraw", BasicCanvasObject);
+			}
+			public void onSuperDraw(StarObjectClass canvas){
+				StarCLECanvas star_canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(canvas,"AndroidObject");
+				if( star_canvas != null )
+					super.onDraw((Canvas)star_canvas.GetAndroidObject());
+			}
+			
+			@Override
+		     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+				StarObjectClass self = BasicAndroidObject.getStarObject();
+				StarObjectClass definedclass = self._DefinedClass("onLayout");
+				StarObjectClass basicclass = Service._GetObject("ViewGroupClass");
+				if( definedclass._GetStr("_ID").equals(basicclass._GetStr("_ID")) )
+					return;
+				self._Call("onLayout", changed,left, top, right, bottom);
+			}
+			@Override
+		     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+				StarObjectClass self = BasicAndroidObject.getStarObject();
+				StarObjectClass definedclass = self._DefinedClass("onMeasure");
+				StarObjectClass basicclass = Service._GetObject("ViewGroupClass");
+				if( definedclass._GetStr("_ID").equals(basicclass._GetStr("_ID")) ){
+					super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+					return;
+				}
+				self._Call("onMeasure", widthMeasureSpec, heightMeasureSpec);
+			}
+			public void onSuperMeasure(int widthMeasureSpec, int heightMeasureSpec){
+				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+			}	
+			
+			@Override
+		     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+				StarObjectClass self = BasicAndroidObject.getStarObject();
+				StarObjectClass definedclass = self._DefinedClass("onSizeChanged");
+				StarObjectClass basicclass = Service._GetObject("ViewGroupClass");
+				if( definedclass._GetStr("_ID").equals(basicclass._GetStr("_ID")) ){
+					super.onSizeChanged(w, h, oldw, oldh);
+					return;
+				}
+				self._Call("onSizeChanged", w, h, oldw, oldh);
+			}
+			public void onSuperSizeChanged(int w, int h, int oldw, int oldh){
+				super.onSizeChanged(w, h, oldw, oldh);
+			}				
+			
+			void _setMeasuredDimension(int measuredWidth,int measuredHeight){
+				super.setMeasuredDimension(measuredWidth,measuredHeight);
+			}
+		}
+		
+        /* ViewGroupClass Body */
+        Service._GetObject("ViewGroupClass")._Assign(new StarObjectClass(){       	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void addView(StarObjectClass self,StarObjectClass child) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @note child will be freed with viewgroup
+        	 */
+        	public void addView(StarObjectClass self,StarObjectClass child){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null && child != null ){
+        			View view = (View)WrapAndroidClass.GetAndroidObject(child,"AndroidObject");
+        			viewgroup.addView(view);
+        			child._LockGC();
+        			child._Call("decAndroidRef");  // release with parent
+        		}        			
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public StarObjectClass  getChildAt(StarObjectClass self,int index) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public StarObjectClass  getChildAt(StarObjectClass self,int index) {
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null ){
+        			View view = viewgroup.getChildAt(index);
+        			if( view == null || !(view instanceof BasicAndroidInterface) )
+        				return null;
+        			return ((BasicAndroidInterface)view).getBasicAndroid().getStarObject();
+        		}
+        		return null;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getChildCount(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getChildCount(StarObjectClass self)  {
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			return viewgroup.getChildCount();
+        		return 0;
+        	}        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  recomputeViewAttributes(StarObjectClass self,StarObjectClass child) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  recomputeViewAttributes(StarObjectClass self,StarObjectClass child){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null && child != null ){
+        			View view = (View)WrapAndroidClass.GetAndroidObject(child,"AndroidObject");
+        			viewgroup.recomputeViewAttributes(view);
+        		}        			
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  removeView(StarObjectClass self,StarObjectClass view) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  removeView(StarObjectClass self,StarObjectClass view){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null && view != null ){
+        			View android_view = (View)WrapAndroidClass.GetAndroidObject(view,"AndroidObject");
+        			viewgroup.removeView(android_view);
+        		}        			
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  removeAllViews(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  removeAllViews(StarObjectClass self){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			viewgroup.removeAllViews();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  refreshDrawableState(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  refreshDrawableState(StarObjectClass self){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			viewgroup.refreshDrawableState();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  requestFocus(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  requestFocus(StarObjectClass self){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			return viewgroup.requestFocus();
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  requestFocus1(StarObjectClass self,int direction) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  requestFocus1(StarObjectClass self,int direction){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			return viewgroup.requestFocus(direction);
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  requestFocusFromTouch(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  requestFocusFromTouch(StarObjectClass self){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			return viewgroup.requestFocusFromTouch();
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">ppublic void  requestLayout(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  requestLayout(StarObjectClass self){
+        		ViewGroup viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			viewgroup.requestLayout();
+        		return;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void onDraw(StarObjectClass self,StarObjectClass Canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @note   the function can be override
+        	 */
+        	public void onDraw(StarObjectClass self,StarObjectClass Canvas){
+        		return;
+        	}          	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setPadding(StarObjectClass self,int left,int top,int right,int bottom) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @note   if onDraw function is override then users can use this function to call super method \n
+        	 *            void onDraw(StarObjectClass self,StarObjectClass Canvas)
+        	 */
+        	public void onSuperDraw(StarObjectClass self,StarObjectClass Canvas){
+        		StarCLEViewGroup viewgroup = (StarCLEViewGroup)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( viewgroup != null )
+        			viewgroup.onSuperDraw(Canvas);
+        	}       	
+        });    
+        
+		return true;
+	}	
+}

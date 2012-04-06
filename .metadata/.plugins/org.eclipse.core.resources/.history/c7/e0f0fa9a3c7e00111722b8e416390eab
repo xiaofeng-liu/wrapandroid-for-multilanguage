@@ -1,0 +1,26 @@
+package com.srplab.wrapandroid;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.shapes.ArcShape;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEArcShape implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public ArcShape arcshape;
+			public StarCLEArcShape(Context ctx,StarObjectClass In_Object){
+				arcshape = new ArcShape();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return arcshape;}
+			public void SetAndroidObject(Object object){arcshape=(ArcShape)object;}																																																																														
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}

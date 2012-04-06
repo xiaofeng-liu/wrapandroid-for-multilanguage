@@ -1,0 +1,32 @@
+package com.srplab.wrapandroid;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.content.res.AssetFileDescriptor;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEAssetFileDescriptor implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public AssetFileDescriptor assetfiledescriptor;
+			private List<Object> RefList;
+			public StarCLEAssetFileDescriptor(Context ctx,StarObjectClass In_Object){
+				assetfiledescriptor = null;
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return assetfiledescriptor;}
+			public void SetAndroidObject(Object object){assetfiledescriptor=(AssetFileDescriptor)object;}
+			public void AddRef(Object object){RefList.add(object);}
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}

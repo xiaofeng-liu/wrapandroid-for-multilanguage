@@ -1,0 +1,394 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.graphics.Paint;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class PaintClass{
+	/**
+	 * @note do not call Init method directly
+	 *       Instance of PaintClass should be freed manually
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init PaintClass");
+
+		class StarCLEPaint extends Paint implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;         			        			
+			public StarCLEPaint(Context ctx,StarObjectClass In_Object){
+				super();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;}; 
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "PaintClass not support SetAndroidObject" );}																																																			
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+        /* PaintClass Body */
+        Service._GetObject("PaintClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEPaint button = new StarCLEPaint((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)button);
+        		return;
+        	}       
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getAlpha(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getAlpha(StarObjectClass self){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			return paint.getAlpha();
+        		else
+        			return 0;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getColor(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getColor(StarObjectClass self){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			return paint.getColor();
+        		else
+        			return 0;
+        	}      
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getColor(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public float  measureText(StarObjectClass self,String text){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			return paint.getColor();
+        		else
+        			return 0;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  reset(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  reset(StarObjectClass self){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.reset();
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  set(StarObjectClass self,StarObjectClass src) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  set(StarObjectClass self,StarObjectClass src){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint srcpaint = (Paint)WrapAndroidClass.GetAndroidObject(src,"AndroidObject");
+        		if( paint != null && srcpaint != null )
+        			paint.set(srcpaint);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setARGB(StarObjectClass self,int a, int r, int g, int b) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setARGB(StarObjectClass self,int a, int r, int g, int b){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setARGB(a,r,g,b);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setAlpha(StarObjectClass self,int a) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setAlpha(StarObjectClass self,int a){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setAlpha(a);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setAntiAlias(StarObjectClass self,boolean aa) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setAntiAlias(StarObjectClass self,boolean aa){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setAntiAlias(aa);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setColor(StarObjectClass self,int color) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setColor(StarObjectClass self,int color){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setColor(color);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setFlags(StarObjectClass self,int flags) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setFlags(StarObjectClass self,int flags){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setFlags(flags);
+        	}        
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setLinearText(StarObjectClass self,boolean linearText) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setLinearText(StarObjectClass self,boolean linearText){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setLinearText(linearText);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setShadowLayer(StarObjectClass self,float radius, float dx, float dy, int color) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setShadowLayer(StarObjectClass self,float radius, float dx, float dy, int color){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setShadowLayer(radius,dx,dy,color);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStrikeThruText(StarObjectClass self,boolean strikeThruText) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setStrikeThruText(StarObjectClass self,boolean strikeThruText){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setStrikeThruText(strikeThruText);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStrokeCap(StarObjectClass self,String cap) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param cap "BUTT","ROUND","SQUARE"
+        	 */        	
+        	public void  setStrokeCap(StarObjectClass self,String cap){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null ){
+        			if( cap.equals("BUTT"))
+        				paint.setStrokeCap(Paint.Cap.BUTT );
+        			else if( cap.equals("ROUND"))
+        				paint.setStrokeCap(Paint.Cap.ROUND );
+        			else if( cap.equals("SQUARE"))
+        				paint.setStrokeCap(Paint.Cap.SQUARE );
+        		}
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStrokeJoin(StarObjectClass self,String join) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param cap "BEVEL","MITER","ROUND"
+        	 */        	
+        	public void  setStrokeJoin(StarObjectClass self,String join){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null ){
+        			if( join.equals("BEVEL"))
+        				paint.setStrokeJoin(Paint.Join.BEVEL );
+        			else if( join.equals("MITER"))
+        				paint.setStrokeJoin(Paint.Join.MITER );
+        			else if( join.equals("ROUND"))
+        				paint.setStrokeJoin(Paint.Join.ROUND );
+        		}
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStrokeMiter(StarObjectClass self,float miter) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setStrokeMiter(StarObjectClass self,float miter){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setStrokeMiter(miter);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStrokeWidth(StarObjectClass self,float width) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setStrokeWidth(StarObjectClass self,float width){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setStrokeWidth(width);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStyle(StarObjectClass self,String style) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param style "FILL" "FILL_AND_STROKE" "STROKE"
+        	 */        	
+        	public void  setStyle(StarObjectClass self,String style){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null ){
+        			if( style.equals("FILL"))
+        				paint.setStyle(Paint.Style.FILL );
+        			else if( style.equals("FILL_AND_STROKE"))
+        				paint.setStyle(Paint.Style.FILL_AND_STROKE );
+        			else if( style.equals("STROKE"))
+        				paint.setStyle(Paint.Style.STROKE );
+        		}
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setSubpixelText(StarObjectClass self,boolean subpixelText) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setSubpixelText(StarObjectClass self,boolean subpixelText){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setSubpixelText(subpixelText);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setTextAlign(StarObjectClass self,String align) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param align "CENTER" "LEFT" "RIGHT"
+        	 */        	
+        	public void  setTextAlign(StarObjectClass self,String align){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null ){
+        			if( align.equals("CENTER"))
+        				paint.setTextAlign(Paint.Align.CENTER );
+        			else if( align.equals("LEFT"))
+        				paint.setTextAlign(Paint.Align.LEFT );
+        			else if( align.equals("RIGHT"))
+        				paint.setTextAlign(Paint.Align.RIGHT );
+        		}
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setTextScaleX(StarObjectClass self,float scaleX) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setTextScaleX(StarObjectClass self,float scaleX){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setTextScaleX(scaleX);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setTextSize(StarObjectClass self,float textSize) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setTextSize(StarObjectClass self,float textSize){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setTextSize(textSize);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setTextSkewX(StarObjectClass self,float skewX) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setTextSkewX(StarObjectClass self,float skewX){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setTextSkewX(skewX);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setUnderlineText(StarObjectClass self,boolean underlineText) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setUnderlineText(StarObjectClass self,boolean underlineText){
+        		Paint paint = (Paint)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( paint != null )
+        			paint.setUnderlineText(underlineText);
+        	}            	
+        	
+        });    
+        
+		return true;
+	}	
+}

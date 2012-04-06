@@ -1,0 +1,196 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+
+import com.srplab.www.starcore.*;
+
+class WrapAndroidClass{	
+	
+	static public boolean Init(AssetManager assetManager,StarSrvGroupClass SrvGroup){
+		final StarSrvGroupClass MySrvGroup = SrvGroup;
+        try{
+        	String xmlbuf;
+        	
+	       	InputStream dataSource = assetManager.open("SRPWrapAndroidEngine.xml");
+	       	int size=dataSource.available();
+	       	byte[] buffer=new byte[size]; 
+	       	dataSource.read(buffer); 
+	       	dataSource.close();        
+	       	xmlbuf=new String(buffer);
+	       	SrvGroup._ImportServiceFromXmlBuf(xmlbuf, true);
+	    }
+	    catch(IOException e ){
+	    	return false;
+	    }   	       	
+        //----create functions for each class
+        StarServiceClass Service;        
+        Service = SrvGroup._GetServiceEx("SRPWrapAndroidEngine","root", "123");
+
+        StarObjectClass starobject = Service._GetObject("LinearLayoutClass");
+        
+        /** LayoutClass Body */
+        Service._GetObject("LayoutClass")._Assign(new StarObjectClass(){        	
+        	public StarObjectClass getActivity(StarObjectClass self){
+        		StarServiceClass Service = (StarServiceClass)self._Get("_Service");
+        		StarObjectClass activity = Service._GetObject("ActivityClass");
+        		
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		while( parent != null ){
+        			if( activity._IsInst(parent) == true )
+        				return parent;
+        			parent = (StarObjectClass)parent._Get("_Parent");
+        		}
+        		return null;
+        	}        	
+        });
+        
+        /** LinearLayoutClass Body */
+        Service._GetObject("LinearLayoutClass")._Assign(new StarObjectClass(){        	
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		if( parent == null || activity == null ){
+        			System.out.println(self+":Parent object is not layout or activity");
+        			return null;
+        		}
+        		LinearLayout layout = new LinearLayout((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)layout);
+        		if( activity == parent ){
+        			Activity android_activity = (Activity)parent._Get("AndroidObject");
+        			android_activity.setContentView(layout);
+        		}else{
+        			ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        			android_viewgroup.addView(layout);
+        		}
+        		return null;
+        	}   
+        	public Object[] _OnDestroy(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		if( parent == null || activity == null ){
+        			System.out.println(self+":Parent object is not layout or activity");
+        			return null;
+        		}
+        		LinearLayout layout = (LinearLayout)self._Get("AndroidObject");
+        		if( activity == parent ){
+//        			Activity android_activity = (Activity)parent._Get("AndroidObject");
+//        			android_activity.setContentView(null);
+        		}else{
+        			ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        			android_viewgroup.removeView(layout);
+        		}
+        		self._Set("AndroidObject", (Object)null);
+        		return null;
+        	}
+        	
+        	public void setOrientation(StarObjectClass self,int orientation){
+        		LinearLayout layout = (LinearLayout)self._Get("AndroidObject");
+        		System.out.println(layout);
+        	}
+        });   
+        
+        /** Widget Body */
+        Service._GetObject("WidgetClass")._Assign(new StarObjectClass(){        	
+        	public StarObjectClass getActivity(StarObjectClass self){
+        		StarServiceClass Service = (StarServiceClass)self._Get("_Service");
+        		StarObjectClass activity = Service._GetObject("ActivityClass");
+        		
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		while( parent != null ){
+        			if( activity._IsInst(parent) == true )
+        				return parent;
+        			parent = (StarObjectClass)parent._Get("_Parent");
+        		}
+        		return null;
+        	}        	
+        });
+        
+        /** TextViewClass Body */
+        Service._GetObject("TextViewClass")._Assign(new StarObjectClass(){        	
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		
+        		
+        		StarServiceClass Service = (StarServiceClass)self._Get("_Service");
+        		StarObjectClass textviewclass = (StarObjectClass)Service._Get("TextViewClass");
+        		if( textviewclass._IsDirectInst(self) == false )  //for maybe button, etc.
+        			return null;
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		if( parent == null || activity == null ){
+        			System.out.println(self+":Parent object is not layout or activity");
+        			return null;
+        		}
+        		TextView textview = new TextView((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)textview);
+        		if( activity == parent ){
+        			Activity android_activity = (Activity)parent._Get("AndroidObject");
+        			android_activity.setContentView(textview);
+        		}else{
+        			ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        			android_viewgroup.addView(textview);
+        		}
+        		return null;
+        	}        	
+        	public void setText(StarObjectClass self,String Text){
+        		TextView textview = (TextView)self._Get("AndroidObject");
+        		textview.setText(Text);
+        	}
+        });         
+        
+        /** ButtonClass Body */
+        Service._GetObject("ButtonClass")._Assign(new StarObjectClass(){        	
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		if( parent == null || activity == null ){
+        			System.out.println(self+":Parent object is not layout or activity");
+        			return null;
+        		}
+        		Button button = new Button((Activity)activity._Get("AndroidObject"));        		
+        		self._Set("AndroidObject", (Object)button);
+        		/*------set click call back function -------*/
+        		button.setOnClickListener(new View.OnClickListener(){ 
+                    public void onClick(View v) {
+                    	//--find srp object from view object, we have to trace each 
+                    	StarServiceClass Service = MySrvGroup._GetServiceEx("SRPWrapAndroidEngine","root", "123");
+                    	StarObjectClass buttonclass = Service._GetObject("ButtonClass");
+                    	StarQueryRecordClass record = MySrvGroup._NewQueryRecord();
+                    	StarObjectClass starbutton;
+                    	
+                    	starbutton = buttonclass._FirstInst(record);
+                    	while( starbutton != null ){
+                    		if( starbutton._Get("AndroidObject") == v )
+                    			break;
+                    		starbutton = buttonclass._NextInst(record);
+                    	}
+                    	if( starbutton != null ){
+                    		starbutton._ProcessEvent("onClick");
+                    	}
+                    } 
+                });         		
+        		if( activity == parent ){
+        			Activity android_activity = (Activity)parent._Get("AndroidObject");
+        			android_activity.setContentView(button);
+        		}else{
+        			ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        			android_viewgroup.addView(button);
+        		}
+        		return null;
+        	}        	
+        });    
+        
+		return true;
+	}	
+}

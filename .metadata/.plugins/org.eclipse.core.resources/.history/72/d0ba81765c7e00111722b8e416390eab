@@ -1,0 +1,26 @@
+package com.srplab.wrapandroid;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEGradientDrawable implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public GradientDrawable gradientdrawable;
+			public StarCLEGradientDrawable(Context ctx,StarObjectClass In_Object){
+				gradientdrawable = new GradientDrawable();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return gradientdrawable;}
+			public void SetAndroidObject(Object object){gradientdrawable=(GradientDrawable)object;}																																																																														
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}

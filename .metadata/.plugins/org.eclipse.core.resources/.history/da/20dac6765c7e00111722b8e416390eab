@@ -1,0 +1,26 @@
+package com.srplab.wrapandroid;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.shapes.OvalShape;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEOvalShape implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public OvalShape ovalshape;
+			public StarCLEOvalShape(Context ctx,StarObjectClass In_Object){
+				ovalshape = new OvalShape();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return ovalshape;}
+			public void SetAndroidObject(Object object){ovalshape=(OvalShape)object;}																																																																														
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}

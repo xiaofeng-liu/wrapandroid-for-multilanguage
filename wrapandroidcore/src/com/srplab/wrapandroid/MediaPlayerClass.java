@@ -1,0 +1,499 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.media.MediaPlayer;
+import android.content.res.AssetFileDescriptor;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Stack;
+import android.net.Uri;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class MediaPlayerClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init MediaPlayerClass");
+
+		class StarCLEMediaPlayer extends MediaPlayer implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject; 
+			private List<Object> RefList;
+			public StarCLEMediaPlayer(Context ctx,StarObjectClass In_Object){
+				super();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;}; 
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "MediaPlayerClass not support SetAndroidObject" );}
+			public void AddRef(Object object){RefList.add(object);}
+			public void DelRef(Object object){RefList.remove(object);}
+			protected void finalize(){
+				if( isPlaying() == true )
+				    stop();
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+        /* MediaPlayerClass Body */
+        Service._GetObject("MediaPlayerClass")._Assign(new StarObjectClass(){
+        	/* _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");    
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		
+            	/**
+            	 * <div class="memproto">
+            	 *   <table class="memname">
+            	 *     <tr><td class="memname">Event : onBufferingUpdate(Hashtable Ev,int percent) </td></tr>
+            	 *   </table>
+            	 * </div>
+            	 */        		
+        		mediaplayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+       				@Override 
+       				public void  onBufferingUpdate(MediaPlayer mp, int percent){  
+       					StarObjectClass self = ((BasicAndroidInterface)mp).getBasicAndroid().getStarObject();
+       					self._ProcessEvent("OnBufferingUpdate", percent);
+       				};
+       			});
+            	/**
+            	 * <div class="memproto">
+            	 *   <table class="memname">
+            	 *     <tr><td class="memname">Event : OnCompletion(Hashtable Ev) </td></tr>
+            	 *   </table>
+            	 * </div>
+            	 */     
+        		mediaplayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+       				@Override 
+       				public void  onCompletion(MediaPlayer mp) {  
+       					StarObjectClass self = ((BasicAndroidInterface)mp).getBasicAndroid().getStarObject();
+       					self._ProcessEvent("OnCompletion");
+       				};
+       			});
+            	/**
+            	 * <div class="memproto">
+            	 *   <table class="memname">
+            	 *     <tr><td class="memname">Event : onError(Hashtable Ev,what,extra) </td></tr>
+            	 *   </table>
+            	 * </div>
+            	 * @note current, this event returns false by default
+            	 */        		
+        		mediaplayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+       				@Override 
+       				public boolean onError(MediaPlayer mp, int what, int extra) {  
+       					StarObjectClass self = ((BasicAndroidInterface)mp).getBasicAndroid().getStarObject();
+       					self._ProcessEvent("onError",what,extra);
+       					return false;
+       				};
+       			});       
+            	/**
+            	 * <div class="memproto">
+            	 *   <table class="memname">
+            	 *     <tr><td class="memname">Event : OnInfo(Hashtable Ev,what,extra) </td></tr>
+            	 *   </table>
+            	 * </div>
+            	 * @note current, this event returns false by default
+            	 */        		
+        		mediaplayer.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+       				@Override 
+       				public boolean  onInfo(MediaPlayer mp, int what, int extra)   {  
+       					StarObjectClass self = ((BasicAndroidInterface)mp).getBasicAndroid().getStarObject();
+       					self._ProcessEvent("OnInfo",what,extra);
+       					return false;
+       				};
+       			});        
+            	/**
+            	 * <div class="memproto">
+            	 *   <table class="memname">
+            	 *     <tr><td class="memname">Event : onPrepared(Hashtable Ev) </td></tr>
+            	 *   </table>
+            	 * </div>
+            	 */        		
+        		mediaplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+       				@Override 
+       				public void  onPrepared(MediaPlayer mp)   {  
+       					StarObjectClass self = ((BasicAndroidInterface)mp).getBasicAndroid().getStarObject();
+       					self._ProcessEvent("onPrepared");
+       				};
+       			});    
+            	/**
+            	 * <div class="memproto">
+            	 *   <table class="memname">
+            	 *     <tr><td class="memname">Event : onSeekComplete(Hashtable Ev) </td></tr>
+            	 *   </table>
+            	 * </div>
+            	 */        		
+        		mediaplayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
+       				@Override 
+       				public void  onSeekComplete(MediaPlayer mp)   {  
+       					StarObjectClass self = ((BasicAndroidInterface)mp).getBasicAndroid().getStarObject();
+       					self._ProcessEvent("onSeekComplete");
+       				};
+       			});    
+            	/**
+            	 * <div class="memproto">
+            	 *   <table class="memname">
+            	 *     <tr><td class="memname">Event : onVideoSizeChanged(Hashtable Ev,width,height) </td></tr>
+            	 *   </table>
+            	 * </div>
+            	 */        		
+        		mediaplayer.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
+       				@Override 
+       				public void  onVideoSizeChanged(MediaPlayer mp, int width, int height)    {  
+       					StarObjectClass self = ((BasicAndroidInterface)mp).getBasicAndroid().getStarObject();
+       					self._ProcessEvent("onVideoSizeChanged",width,height);
+       				};
+       			});         		
+        		return null;
+        	}        	
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEMediaPlayer mediaplayer = new StarCLEMediaPlayer((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)mediaplayer);
+        		return;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getCurrentPosition(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getCurrentPosition(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null  )
+        			return 0;
+        		return mediaplayer.getCurrentPosition();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getDuration(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getDuration(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return 0;
+        		return mediaplayer.getDuration();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getVideoHeight(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getVideoHeight(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return 0;
+        		return mediaplayer.getVideoHeight();
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getVideoWidth(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getVideoWidth(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return 0;
+        		return mediaplayer.getVideoWidth();
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isLooping(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  isLooping(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return false;
+        		return mediaplayer.isLooping();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isPlaying(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  isPlaying(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return false;
+        		return mediaplayer.isPlaying();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  pause(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  pause(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.pause();
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  prepare(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  prepare(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		try{
+        			mediaplayer.prepare();
+        		}catch(IOException e){
+        			SrvGroup._Print(e.toString());
+        		}
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  prepareAsync(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  prepareAsync(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.prepareAsync();
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  release(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  release(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.release();
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  reset(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  reset(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.reset();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  seekTo(StarObjectClass self,int msec) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  seekTo(StarObjectClass self,int msec){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.seekTo(msec);
+        	}      
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setDataSource(StarObjectClass self,String path) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setDataSource(StarObjectClass self,String path){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		try{
+        			mediaplayer.setDataSource(path);
+        		}catch(IOException e){
+        			SrvGroup._Print(e.toString());
+        		}
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setDataSource1(StarObjectClass self,StarObjectClass fd) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param fd   Instance of AssetFileDescriptorClass;
+        	 */
+        	public void  setDataSource1(StarObjectClass self,StarObjectClass fd){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		StarObjectClass assertfileclass = Service._GetObject("AssetFileDescriptorClass");
+        		if( assertfileclass._IsInst(fd) == true ){
+        			StarCLEAssetFileDescriptor starfd = (StarCLEAssetFileDescriptor)WrapAndroidClass.GetAndroidObject(fd,"AndroidObject");
+        			if( starfd.assetfiledescriptor == null ){
+        				SrvGroup._Print("input fd is not init");
+        				return;
+        			}
+        			try{
+        				mediaplayer.setDataSource(starfd.assetfiledescriptor.getFileDescriptor());
+        			}catch(IOException e){
+        				SrvGroup._Print(e.toString());
+        			}
+        		}else
+        			SrvGroup._Print("input fd is invalid");
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setDataSource2(StarObjectClass self,StarObjectClass fd, long offset, long length) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param fd   Instance of AssetFileDescriptorClass;
+        	 */
+        	public void  setDataSource2(StarObjectClass self,StarObjectClass fd, int offset, int length){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		StarObjectClass assertfileclass = Service._GetObject("AssetFileDescriptorClass");
+        		if( assertfileclass._IsInst(fd) == true ){
+        			StarCLEAssetFileDescriptor starfd = (StarCLEAssetFileDescriptor)WrapAndroidClass.GetAndroidObject(fd,"AndroidObject");
+        			if( starfd.assetfiledescriptor == null ){
+        				SrvGroup._Print("input fd is not init");
+        				return;
+        			}
+        			try{
+        				mediaplayer.setDataSource(starfd.assetfiledescriptor.getFileDescriptor(),offset,length);
+        			}catch(IOException e){
+        				SrvGroup._Print(e.toString());
+        			}
+        		}else
+        			SrvGroup._Print("input fd is invalid");
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setDisplay(StarObjectClass self,StarObjectClass sh) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @note sh : Instance of SurfaceViewClass
+        	 */
+        	public void  setDisplay(StarObjectClass self,StarObjectClass sh){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		StarCLESurfaceView surfaceview = (StarCLESurfaceView)WrapAndroidClass.GetAndroidObject(sh,"AndroidObject");
+        		mediaplayer.setDisplay(surfaceview.getHolder());
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setLooping(StarObjectClass self,boolean looping) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setLooping(StarObjectClass self,boolean looping){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.setLooping(looping);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setScreenOnWhilePlaying(StarObjectClass self,boolean screenOn) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setScreenOnWhilePlaying(StarObjectClass self,boolean screenOn){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.setScreenOnWhilePlaying(screenOn);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setVolume(StarObjectClass self,float leftVolume, float rightVolume) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setVolume(StarObjectClass self,float leftVolume, float rightVolume){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.setVolume(leftVolume,rightVolume);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  start(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  start(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.start();      		
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  stop(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  stop(StarObjectClass self){ 
+        		StarCLEMediaPlayer mediaplayer = (StarCLEMediaPlayer)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( mediaplayer == null )
+        			return;
+        		mediaplayer.stop();
+        	}            	
+        });    
+        
+		return true;
+	}	
+}

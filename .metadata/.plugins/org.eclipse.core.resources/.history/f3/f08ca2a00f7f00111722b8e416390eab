@@ -1,0 +1,147 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class GalleryClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init GalleryClass");	
+        /* GalleryClass Body */
+        Service._GetObject("GalleryClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEGallery gallery = new StarCLEGallery((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),null,self);
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)gallery);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_activity.setContentView(gallery);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_viewgroup.addView(gallery);
+        			}
+        			self._LockGC();
+        			self._Call("decAndroidRef");  // release with parent
+        		}
+        		return;
+        	}       
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  onDown(StarObjectClass self,StarObjectClass e)</td></tr>
+        	 *   </table>
+        	 * </div>  
+        	 * @note this function can be override   	 
+        	 */        	
+        	public boolean  onDown(StarObjectClass self,StarObjectClass e){
+        		return false;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  onSuperDown(StarObjectClass self,StarObjectClass e)</td></tr>
+        	 *   </table>
+        	 * </div>  
+        	 */ 
+        	public boolean  onSuperDown(StarObjectClass self,StarObjectClass e){
+        		StarCLEGallery gallery = (StarCLEGallery)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gallery != null ){
+        			BasicAndroidInterface androidinterface = (BasicAndroidInterface)WrapAndroidClass.GetAndroidObject(e,"AndroidObject");
+        			return gallery.onSuperDown((MotionEvent)androidinterface.GetAndroidObject());
+        		}
+        		return false;        		
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  onFling(StarObjectClass self,StarObjectClass e1, StarObjectClass e2, float velocityX, float velocityY)</td></tr>
+        	 *   </table>
+        	 * </div>  
+        	 * @note this function can be override   	 
+        	 */ 
+        	public boolean  onFling(StarObjectClass self,StarObjectClass e1, StarObjectClass e2, float velocityX, float velocityY){
+        		return false;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  onSuperFling(StarObjectClass self,StarObjectClass e1, StarObjectClass e2, float velocityX, float velocityY)</td></tr>
+        	 *   </table>
+        	 * </div>  
+        	 */
+        	public boolean  onSuperFling(StarObjectClass self,StarObjectClass e1, StarObjectClass e2, float velocityX, float velocityY){
+        		StarCLEGallery gallery = (StarCLEGallery)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gallery != null ){
+        			BasicAndroidInterface androidinterface1 = (BasicAndroidInterface)WrapAndroidClass.GetAndroidObject(e1,"AndroidObject");
+        			BasicAndroidInterface androidinterface2 = (BasicAndroidInterface)WrapAndroidClass.GetAndroidObject(e2,"AndroidObject");
+        			return gallery.onSuperFling((MotionEvent)androidinterface1.GetAndroidObject(),(MotionEvent)androidinterface2.GetAndroidObject(),velocityX,velocityY);
+        		}
+        		return false;        		        		
+        	}
+
+        	public void  onLongPress(StarObjectClass self,StarObjectClass e) 
+
+        	public void  onSuperLongPress(StarObjectClass self,StarObjectClass e) 
+
+        	public boolean  onScroll(StarObjectClass self,StarObjectClass e1, StarObjectClass e2, float distanceX, float distanceY) 
+
+        	public boolean  onSuperScroll(StarObjectClass self,StarObjectClass e1, StarObjectClass e2, float distanceX, float distanceY) 
+
+        	public void  onShowPress(StarObjectClass self,StarObjectClass e) 
+
+        	public void  onSuperShowPress(StarObjectClass self,StarObjectClass e) 
+
+        	public boolean  onSingleTapUp(StarObjectClass self,StarObjectClass e) 
+
+        	public boolean  onSuperSingleTapUp(StarObjectClass self,StarObjectClass e) 
+
+        	public boolean  onTouchEvent(StarObjectClass self,StarObjectClass event) 
+
+        	public boolean  onSuperTouchEvent(StarObjectClass self,StarObjectClass event) 
+
+        	public void  setAnimationDuration(StarObjectClass self,int animationDurationMillis) 
+
+        	public void  setCallbackDuringFling(StarObjectClass self,boolean shouldCallback) 
+
+        	public void  setGravity(StarObjectClass self,int gravity) 
+
+        	public void  setSpacing(StarObjectClass self,int spacing) 
+
+        	public void  setUnselectedAlpha(StarObjectClass self,float unselectedAlpha) 
+
+        	public boolean  showContextMenu(StarObjectClass self)         	
+        });                
+
+		return true;
+	}	
+}

@@ -1,0 +1,377 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
+import android.graphics.Bitmap;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class CanvasClass{
+	/**
+	 * @note do not call Init method directly
+	 *       Instance of PaintClass should be freed manually
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init CanvasClass");		
+        /* CanvasClass Body */
+        Service._GetObject("CanvasClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLECanvas canvas = new StarCLECanvas((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)canvas);
+        		return;
+        	}       
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawARGB(StarObjectClass self,int a, int r, int g, int b) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawARGB(StarObjectClass self,int a, int r, int g, int b){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawARGB(a,r,g,b);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawArc(StarObjectClass self,float left,float top,float right,float bottom, float startAngle, float sweepAngle, boolean useCenter, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawArc(StarObjectClass self,float left,float top,float right,float bottom, float startAngle, float sweepAngle, boolean useCenter, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject"); 
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawArc(new RectF(left,top,right,bottom), startAngle, sweepAngle, useCenter, android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawBitmap(StarObjectClass self,StarObjectClass bitmap, float left, float top, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */ 
+        	public void  drawBitmap(StarObjectClass self,StarObjectClass bitmap, float left, float top, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		StarCLEBitmap android_bitmap = (StarCLEBitmap)WrapAndroidClass.GetAndroidObject(bitmap,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null  && canvas.GetAndroidObject() != null && android_bitmap != null && android_bitmap.bitmap != null )
+        			((Canvas)canvas.GetAndroidObject()).drawBitmap(android_bitmap.bitmap,left,top,android_paint);
+        	}         	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawBitmap1(StarObjectClass self,StarBinBufClass colors, int offset, int stride, int x, int y, int width, int height, boolean hasAlpha, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @note not implemented
+        	 */         	
+        	public void  drawBitmap1(StarObjectClass self,StarBinBufClass colors, int offset, int stride, int x, int y, int width, int height, boolean hasAlpha, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+//        		if( canvas != null && canvas.GetAndroidObject() != null )
+//        			((Canvas)canvas.GetAndroidObject()).drawBitmap(a,r,g,b);
+        	}         	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawCircle(StarObjectClass self,float cx, float cy, float radius, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawCircle(StarObjectClass self,float cx, float cy, float radius, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawCircle(cx,cy,radius,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawColor(StarObjectClass self,int color) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawColor(StarObjectClass self,int color){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawColor(color);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawLine(StarObjectClass self,float startX, float startY, float stopX, float stopY, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawLine(StarObjectClass self,float startX, float startY, float stopX, float stopY, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawLine(startX,startY,stopX,stopY,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawOval(StarObjectClass self,float left,float top,float right,float bottom, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawOval(StarObjectClass self,float left,float top,float right,float bottom, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawOval(new RectF(left,top,right,bottom),android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawPaint(StarObjectClass self,StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawPaint(StarObjectClass self,StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawPaint(android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawPath(StarObjectClass self,StarObjectClass path, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawPath(StarObjectClass self,StarObjectClass path, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Path android_path = (Path)WrapAndroidClass.GetAndroidObject(path,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawPath(android_path,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawPoint(StarObjectClass self,float x, float y, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawPoint(StarObjectClass self,float x, float y, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawPoint(x,y,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawRGB(StarObjectClass self,int r, int g, int b) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawRGB(StarObjectClass self,int r, int g, int b){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawRGB(r,g,b);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawRect(StarObjectClass self,float left, float top, float right, float bottom, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawRect(StarObjectClass self,float left, float top, float right, float bottom, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawRect(left,top,right,bottom,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawRoundRect(StarObjectClass self,float left,float top,float right,float bottom, float rx, float ry, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawRoundRect(StarObjectClass self,float left,float top,float right,float bottom, float rx, float ry, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawRoundRect(new RectF(left,top,right,bottom),rx,ry,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawText(StarObjectClass self,String text, float x, float y, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawText(StarObjectClass self,String text, float x, float y, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawText(text,x,y,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  drawTextOnPath(StarObjectClass self,String text, StarObjectClass path, float hOffset, float vOffset, StarObjectClass paint) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  drawTextOnPath(StarObjectClass self,String text, StarObjectClass path, float hOffset, float vOffset, StarObjectClass paint){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Path android_path = (Path)WrapAndroidClass.GetAndroidObject(path,"AndroidObject");
+        		Paint android_paint = (Paint)WrapAndroidClass.GetAndroidObject(paint,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).drawTextOnPath(text,android_path,hOffset,vOffset,android_paint);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getHeight(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public int  getHeight(StarObjectClass self){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			return ((Canvas)canvas.GetAndroidObject()).getHeight();
+        		return 0;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getWidth(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public int  getWidth(StarObjectClass self){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			return ((Canvas)canvas.GetAndroidObject()).getWidth();
+        		return 0;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  restore(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  restore(StarObjectClass self){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).restore();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  rotate(StarObjectClass self,float degrees) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  rotate(StarObjectClass self,float degrees){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).rotate(degrees);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  save(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public int  save(StarObjectClass self){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			return ((Canvas)canvas.GetAndroidObject()).save();
+        		return 0;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  scale(StarObjectClass self,float sx, float sy) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  scale(StarObjectClass self,float sx, float sy){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).scale(sx,sy);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setBitmap(StarObjectClass self,StarObjectClass bitamp) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  setBitmap(StarObjectClass self,StarObjectClass bitamp){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		StarCLEBitmap clebitmap = (StarCLEBitmap)WrapAndroidClass.GetAndroidObject(bitamp,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null && clebitmap != null && clebitmap.bitmap != null )
+        			((Canvas)canvas.GetAndroidObject()).setBitmap(clebitmap.bitmap);
+        	}         	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  skew(StarObjectClass self,float sx, float sy) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  skew(StarObjectClass self,float sx, float sy){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).skew(sx,sy);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  translate(StarObjectClass self,float dx, float dy) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */         	
+        	public void  translate(StarObjectClass self,float dx, float dy){
+        		StarCLECanvas canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( canvas != null && canvas.GetAndroidObject() != null )
+        			((Canvas)canvas.GetAndroidObject()).translate(dx,dy);
+        	}          	
+        });    
+        
+		return true;
+	}	
+}

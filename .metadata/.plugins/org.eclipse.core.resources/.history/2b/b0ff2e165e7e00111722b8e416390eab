@@ -1,0 +1,169 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.media.SoundPool;
+import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
+import android.content.Intent;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Stack;
+import android.net.Uri;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class IntentClass{
+	/**
+	 * @note do not call Init method directly
+	 * @note default SoundPoolParameter is new SoundPool(64,STREAM_MUSIC,0);  further will be set dynamically
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init IntentClass");
+
+		class StarCLEIntent extends Intent implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject; 
+			private List<Object> RefList;
+			public StarCLEIntent(Context ctx,StarObjectClass In_Object){
+				super();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};  
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "IntentClass not support SetAndroidObject" );}																																				
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+        /* IntentClass Body */
+        Service._GetObject("IntentClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEIntent intent = new StarCLEIntent((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)intent);
+        		return;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setAction(StarObjectClass self,String action) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void setAction(StarObjectClass self,String action){
+        		StarCLEIntent intent = (StarCLEIntent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( intent == null  )
+        			return;
+        		intent.setAction(action);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setData(StarObjectClass self,String data) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void setData(StarObjectClass self,String data){
+        		StarCLEIntent intent = (StarCLEIntent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( intent == null  )
+        			return;
+        		intent.setData(Uri.parse(data));
+        	}         	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setType(StarObjectClass self,String type) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  setType(StarObjectClass self,String type){
+        		StarCLEIntent intent = (StarCLEIntent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( intent == null  )
+        			return;
+        		intent.setType(type);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  putExtra(StarObjectClass self,String name, String value) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  putExtra(StarObjectClass self,String name, String value){
+        		StarCLEIntent intent = (StarCLEIntent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( intent == null  )
+        			return;
+        		intent.putExtra(name,value);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  putExtraEx(StarObjectClass self,String name, StarParaPkgClass parapkg) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param parapkg  support boolean,int,float,string now, binbuf will be supported later
+        	 */
+        	public void  putExtraEx(StarObjectClass self,String name, StarParaPkgClass parapkg){
+        		StarCLEIntent intent = (StarCLEIntent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( intent == null  )
+        			return;
+        		for( int i =0; i < parapkg._Getint("_Number"); i++ ){
+        			switch( parapkg._T(i) ){
+        			case 1 : //int
+        				intent.putExtra(name,parapkg._Toint(parapkg._Get(i)));
+        				break;
+        			case 2 : //float
+        				intent.putExtra(name,parapkg._Todouble(parapkg._Get(i)));
+        				break;
+//        			case 3 : //binbuf
+//        				intent.putExtra(name,parapkg._Toint(parapkg._Get(i)));
+//        				break;
+        			case 4 : //string
+        				intent.putExtra(name,(String)(parapkg._Get(i)));
+        				break;
+//        			case 5 : //time
+//        				intent.putExtra(name,parapkg._Toint(parapkg._Get(i)));
+//        				break;
+        			case 6 : //boolean
+        				intent.putExtra(name,parapkg._Tobool(parapkg._Get(i)));
+        				break;
+        			default : //
+        				SrvGroup._Print("putExtraEx, para at index ["+i+"] not supported");
+        				break;        				
+        			}
+        		}
+        	}  
+        	
+        });    
+        
+		return true;
+	}	
+}

@@ -1,0 +1,29 @@
+package com.srplab.wrapandroid;
+
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEAnimationDrawable implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public AnimationDrawable animationdrawable;
+			private List<Object> RefList;
+			public StarCLEAnimationDrawable(Context ctx,StarObjectClass In_Object){
+				animationdrawable = new AnimationDrawable();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return animationdrawable;}
+			public void SetAndroidObject(Object object){animationdrawable=(AnimationDrawable)object;}																																																																														
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
