@@ -1,0 +1,24 @@
+package com.srplab.wrapandroid;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.webkit.WebSettings;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEWebSettings implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public WebSettings websettings;
+			public StarCLEWebSettings(Context ctx,StarObjectClass In_Object){
+				websettings = null;
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};  
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}

@@ -1,0 +1,9 @@
+package com.srplab.wrapandroid;
+
+public interface BasicAndroidInterface   
+{  
+	BasicAndroidClass getBasicAndroid(); 
+	StarObjectClass GetAndroidObject();
+	void SetAndroidObject(Object object);
+}  
+

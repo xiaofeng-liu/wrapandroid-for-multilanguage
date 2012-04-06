@@ -1,0 +1,32 @@
+package com.srplab.wrapandroid;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEBitmap implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public Bitmap bitmap;
+			private List<Object> RefList;
+			public StarCLEBitmap(Context ctx,StarObjectClass In_Object){
+				bitmap = null;
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return bitmap;}
+			public void SetAndroidObject(Object object){if( bitmap != null ){ bitmap.recycle(); bitmap = null; }bitmap=(Bitmap)object;}
+			public void AddRef(Object object){RefList.add(object);}
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+				if( bitmap != null ){ bitmap.recycle(); bitmap = null; }
+			}			
+		}

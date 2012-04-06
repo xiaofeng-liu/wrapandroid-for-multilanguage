@@ -1,0 +1,344 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
+import android.graphics.Canvas;
+import android.graphics.Bitmap;
+import android.graphics.Path;
+import android.graphics.Paint;
+import android.graphics.Shader.TileMode;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.Rect;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class LayerDrawableClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init LayerDrawableClass");
+
+        /* LayerDrawableClass Body */
+        Service._GetObject("LayerDrawableClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLELayerDrawable layerdrawable = new StarCLELayerDrawable((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)layerdrawable);
+        		return;
+        	}       	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean Init(StarObjectClass self,StarParaPkgClass layers) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param layers set of strings of object's ID
+        	 */        	
+        	public boolean Init(StarObjectClass self,StarParaPkgClass layers){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null ){
+        			int number = layers._Getint("_Number");
+        			if( number == 0 )
+        				return false;
+        			Drawable[] drawable = new Drawable[number];
+        			for( int i=0; i < number ;i ++ ){
+        				String objectid = (String)layers._Get(i);
+        				StarObjectClass starobject = Service._GetObjectEx(objectid);
+        				BasicAndroidInterface androidinterface = (BasicAndroidInterface)WrapAndroidClass.GetAndroidObject(starobject,"AndroidObject");
+        				drawable[i] = (Drawable)androidinterface.GetAndroidObject();
+        			}
+        			layerdrawable.SetAndroidObject(new LayerDrawable(drawable));
+        			return true;
+        		}
+        		return false;
+        	}        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  draw(StarObjectClass self,StarObjectClass canvas){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		StarCLECanvas star_canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(canvas,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			((LayerDrawable)layerdrawable.GetAndroidObject()).draw((Canvas)star_canvas.GetAndroidObject());        		
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public StarObjectClass findDrawableByLayerId(StarObjectClass self,int id) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @return returned object should not be freed
+        	 */         	
+        	public StarObjectClass findDrawableByLayerId(StarObjectClass self,int id){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null ){
+        			BasicAndroidInterface androidinterface = (BasicAndroidInterface)((LayerDrawable)layerdrawable.GetAndroidObject()).findDrawableByLayerId(id);
+        			return androidinterface.getBasicAndroid().getStarObject();
+        		}
+        	    return null;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getChangingConfigurations(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public int  getChangingConfigurations(StarObjectClass self){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).getChangingConfigurations();
+        		return 0;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public StarObjectClass getDrawable(StarObjectClass self,int index) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @return returned object should not be freed
+        	 */         	
+        	public StarObjectClass getDrawable(StarObjectClass self,int index){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null ){
+        			BasicAndroidInterface androidinterface = (BasicAndroidInterface)((LayerDrawable)layerdrawable.GetAndroidObject()).getDrawable(index);
+        			return androidinterface.getBasicAndroid().getStarObject();
+        		}
+        	    return null;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getId(StarObjectClass self,int index) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getId(StarObjectClass self,int index){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).getId(index);
+        		return 0;
+        	}         	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getIntrinsicHeight(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getIntrinsicHeight(StarObjectClass self){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).getIntrinsicHeight();
+        		return 0;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getIntrinsicWidth(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getIntrinsicWidth(StarObjectClass self){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).getIntrinsicWidth();
+        		return 0;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getNumberOfLayers(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getNumberOfLayers(StarObjectClass self){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).getNumberOfLayers();
+        		return 0;
+        	}           	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getOpacity(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getOpacity(StarObjectClass self){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).getOpacity();
+        		return 0;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  getPadding(StarObjectClass self,StarObjectClass padding) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param padding is instance of RectClass
+        	 */
+        	public boolean  getPadding(StarObjectClass self,StarObjectClass padding){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null ){
+        			Rect rect=new Rect(0,0,0,0);
+        			boolean Result = ((LayerDrawable)layerdrawable.GetAndroidObject()).getPadding(rect);
+        			if( Result == false )
+        				return false;
+        			padding._Set("left",rect.left);
+        			padding._Set("top",rect.top);
+        			padding._Set("right",rect.right);
+        			padding._Set("bottom",rect.bottom);
+        			return true;
+        		}
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  invalidateDrawable(StarObjectClass self,StarObjectClass who) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  invalidateDrawable(StarObjectClass self,StarObjectClass who){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null ){
+        			BasicAndroidInterface androidinterface = (BasicAndroidInterface)WrapAndroidClass.GetAndroidObject(who,"AndroidObject");
+        			Drawable drawable = (Drawable)androidinterface.GetAndroidObject();
+        			((LayerDrawable)layerdrawable.GetAndroidObject()).invalidateDrawable(drawable);
+        		}
+        		return;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isStateful(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  isStateful(StarObjectClass self){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).isStateful();
+        		return false;
+        	}          	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setAlpha(StarObjectClass self,int alpha) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setAlpha(StarObjectClass self,int alpha){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			((LayerDrawable)layerdrawable.GetAndroidObject()).setAlpha(alpha);
+        		return;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setDither(StarObjectClass self,boolean dither) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setDither(StarObjectClass self,boolean dither){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			((LayerDrawable)layerdrawable.GetAndroidObject()).setDither(dither);
+        		return;
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  setDrawableByLayerId(StarObjectClass self,int id, StarObjectClass who) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public boolean  setDrawableByLayerId(StarObjectClass self,int id, StarObjectClass who){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null ){
+        			BasicAndroidInterface androidinterface = (BasicAndroidInterface)WrapAndroidClass.GetAndroidObject(who,"AndroidObject");
+        			Drawable drawable = (Drawable)androidinterface.GetAndroidObject();
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).setDrawableByLayerId(id,drawable);
+        		}
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setId(StarObjectClass self,int index, int id) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setId(StarObjectClass self,int index, int id){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			((LayerDrawable)layerdrawable.GetAndroidObject()).setId(index,id);
+        		return;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setLayerInset(StarObjectClass self,int index, int l, int t, int r, int b) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setLayerInset(StarObjectClass self,int index, int l, int t, int r, int b){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			((LayerDrawable)layerdrawable.GetAndroidObject()).setLayerInset(index,l,t,r,b);
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  setVisible(StarObjectClass self,boolean visible, boolean restart) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  setVisible(StarObjectClass self,boolean visible, boolean restart){
+        		StarCLELayerDrawable layerdrawable = (StarCLELayerDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layerdrawable != null && layerdrawable.GetAndroidObject() != null )
+        			return ((LayerDrawable)layerdrawable.GetAndroidObject()).setVisible(visible,restart);
+        		return false;
+        	}          	
+        });    
+        
+		return true;
+	}	
+}

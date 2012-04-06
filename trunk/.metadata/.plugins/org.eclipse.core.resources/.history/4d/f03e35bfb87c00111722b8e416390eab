@@ -1,0 +1,249 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.graphics.Path;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class PathClass{
+	/**
+	 * @note do not call Init method directly
+	 *       Instance of PaintClass should be freed manually
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init PathClass");
+
+		class StarCLEPath extends Path implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;         			        			
+			public StarCLEPath(Context ctx,StarObjectClass In_Object){
+				super();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};  
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "PathClass not support SetAndroidObject" );}																																																						
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+        /* PathClass Body */
+        Service._GetObject("PathClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEPath button = new StarCLEPath((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)button);
+        		return;
+        	}       
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  close(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public void  close(StarObjectClass self){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.close();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  cubicTo(StarObjectClass self,float x1, float y1, float x2, float y2, float x3, float y3) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  cubicTo(StarObjectClass self,float x1, float y1, float x2, float y2, float x3, float y3){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.cubicTo(x1,y1,x2,y2,x3,y3);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isEmpty(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public boolean  isEmpty(StarObjectClass self){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			return path.isEmpty();
+        		return true;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  lineTo(StarObjectClass self,float x, float y) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  lineTo(StarObjectClass self,float x, float y){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.lineTo(x,y);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  moveTo(StarObjectClass self,float x, float y) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  moveTo(StarObjectClass self,float x, float y){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.moveTo(x,y);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  quadTo(StarObjectClass self,float x1, float y1, float x2, float y2) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  quadTo(StarObjectClass self,float x1, float y1, float x2, float y2){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.quadTo(x1,y1,x2,y2);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  rCubicTo(StarObjectClass self,float x1, float y1, float x2, float y2, float x3, float y3) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  rCubicTo(StarObjectClass self,float x1, float y1, float x2, float y2, float x3, float y3){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.rCubicTo(x1,y1,x2,y2,3,y3);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  rLineTo(StarObjectClass self,float dx, float dy) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  rLineTo(StarObjectClass self,float dx, float dy){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.rLineTo(dx,dy);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  rMoveTo(StarObjectClass self,float dx, float dy) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  rMoveTo(StarObjectClass self,float dx, float dy){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.rMoveTo(dx,dy);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  rQuadTo(StarObjectClass self,float dx1, float dy1, float dx2, float dy2) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  rQuadTo(StarObjectClass self,float dx1, float dy1, float dx2, float dy2){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.rQuadTo(dx1,dy1,dx2,dy2);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  reset(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  reset(StarObjectClass self){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.reset();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  rewind(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  rewind(StarObjectClass self){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.rewind();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setFillType(StarObjectClass self,String ft) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param ft "EVEN_ODD" "INVERSE_EVEN_ODD" "INVERSE_WINDING" "WINDING"
+        	 */          	
+        	public void  setFillType(StarObjectClass self,String ft){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null ){
+        			if( ft.equals("EVEN_ODD"))
+        				path.setFillType(Path.FillType.EVEN_ODD);
+        			else if( ft.equals("INVERSE_EVEN_ODD"))
+        				path.setFillType(Path.FillType.INVERSE_EVEN_ODD);
+        			else if( ft.equals("INVERSE_WINDING"))
+        				path.setFillType(Path.FillType.INVERSE_WINDING);
+        			else if( ft.equals("WINDING"))
+        				path.setFillType(Path.FillType.WINDING);        			        			
+        		}
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setLastPoint(StarObjectClass self,float dx, float dy) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */          	
+        	public void  setLastPoint(StarObjectClass self,float dx, float dy){
+        		Path path = (Path)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( path != null )
+        			path.setLastPoint(dx,dy);
+        	}  
+        	
+        });    
+        
+		return true;
+	}	
+}

@@ -1,0 +1,141 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class LinearLayoutClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init LinearLayoutClass");
+
+		class StarCLELinearLayout extends LinearLayout implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;   
+			private List<Object> RefList;
+			public StarCLELinearLayout(Context ctx,StarObjectClass In_Object){
+				super(ctx);
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "LinearLayoutClass not support SetAndroidObject" );}
+			public void AddRef(Object object){RefList.add(object);}
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+        
+        /* LinearLayoutClass Body */
+        Service._GetObject("LinearLayoutClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+
+        		StarCLELinearLayout layout = new StarCLELinearLayout((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)layout);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_activity.setContentView(layout);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_viewgroup.addView(layout);
+        			}
+        			self._LockGC();
+        			self._Call("decAndroidRef");  // release with parent
+        		}
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setGravity(StarObjectClass self,int gravity) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setGravity(StarObjectClass self,int gravity){
+        		LinearLayout layout = (LinearLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layout == null )
+        			return;
+       			layout.setGravity(gravity);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setHorizontalGravity(StarObjectClass self,int horizontalGravity) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setHorizontalGravity(StarObjectClass self,int horizontalGravity){
+        		LinearLayout layout = (LinearLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layout == null )
+        			return;
+       			layout.setHorizontalGravity(horizontalGravity);
+        	}          	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setOrientation(StarObjectClass self,String orientation) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param orientation   "HORIZONTAL","VERTICAL"
+        	 */
+        	public void setOrientation(StarObjectClass self,String orientation){
+        		LinearLayout layout = (LinearLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layout == null )
+        			return;
+        		if( orientation.equals("HORIZONTAL") )
+        			layout.setOrientation(LinearLayout.HORIZONTAL);
+        		else if( orientation.equals("VERTICAL") )
+        			layout.setOrientation(LinearLayout.VERTICAL);
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setVerticalGravity(StarObjectClass self,int verticalGravity) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setVerticalGravity(StarObjectClass self,int verticalGravity){
+        		LinearLayout layout = (LinearLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( layout == null )
+        			return;
+       			layout.setVerticalGravity(verticalGravity);
+        	}           	
+        });    
+		return true;
+	}	
+}

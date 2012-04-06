@@ -1,0 +1,93 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.res.AssetManager;
+
+import java.util.Hashtable;
+
+import com.srplab.www.starcore.*;
+import com.srplab.netinst.*;
+
+public class WrapandroidActivity extends Activity {
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        starcore_net_inst.InstallZipFile(this,"libstarcore.so","http://www.srplab.com/android/starcore_armeabi_r3.zip", "/data/data/com.srplab.wrapandroid/files");
+        StarCoreFactoryPath.StarCoreShareLibraryPath = "/data/data/com.srplab.wrapandroid/files";
+        StarCoreFactoryPath.StarCoreOperationPath = "/data/data/com.srplab.wrapandroid/files";
+        
+        AssetManager assetManager = getAssets();
+        
+        StarCoreFactory starcore;
+        StarSrvGroupClass SrvGroup;
+        StarServiceClass Service;
+        
+		starcore= StarCoreFactory.GetFactory();	
+		SrvGroup = starcore._GetSrvGroup(0);  
+		
+		WrapAndroidClass.Init(assetManager, SrvGroup);		
+		Service = SrvGroup._CreateService( "","test", "123",5,0,0,0,0,0,"" );
+		
+		StarObjectClass StarActivity = Service._GetObject("ActivityClass")._New();
+		StarActivity._Set("AndroidObject",(Object)this);		
+		
+		Object MyActivity = StarActivity._Get("AndroidObject");
+        System.out.println(MyActivity);
+        StarActivity._Call("setResource", "R.drawable.ic_launcher",R.drawable.ic_launcher);
+        System.out.println(StarActivity._Call("getResource", "R.drawable.ic_launcher"));
+        
+//        StarObjectClass MyLayout = Service._GetObject("LinearLayoutClass")._New(StarActivity);
+//        MyLayout._Call("setOrientation",1);
+
+      StarObjectClass MyLayout = Service._GetObject("AbsoluteLayoutClass")._New(StarActivity);
+
+        StarObjectClass MyText = Service._GetObject("TextViewClass")._New(MyLayout);
+        MyText._Call("setText", "Hello");
+        MyText._Call("setText", "我们真高兴");
+        MyText._Call("setLayoutParams",100,30,10,10);
+
+        StarObjectClass MyButton = Service._GetObject("ButtonClass")._New(MyLayout)._Assign(new StarObjectClass(){
+        	public Object[] onClick(StarObjectClass self, Hashtable Ev){
+        	    System.out.println(self+" event on click is trigger");
+        	    return null;
+        	}        	
+        });
+        MyButton._Call("setText", "Hello");
+        MyButton._Call("setLayoutParams",100,30,10,100);
+        
+        StarObjectClass MyButton1 = Service._GetObject("ButtonClass")._New(MyLayout)._Assign(new StarObjectClass(){
+        	public Object[] onClick(StarObjectClass self, Hashtable Ev){
+        	    System.out.println(self+" event on click is trigger");
+        	    return null;
+        	}        	
+        });
+        MyButton1._Call("setText", "............Hello");  
+        MyButton1._Call("setLayoutParams",100,80,80,200);
+        
+        StarObjectClass MyRadioGroup = Service._GetObject("RadioGroupClass")._New(MyLayout)._Assign(new StarObjectClass(){
+        	public Object[] onCheckedChanged(StarObjectClass self, Hashtable Ev,String objid){
+        	    System.out.println(self+" event on click is trigger"+objid);
+        	    return null;
+        	}  
+        });
+        MyRadioGroup._Call("setLayoutParams",300,100,400,100);
+         
+        StarObjectClass MyRadioButton1 = Service._GetObject("RadioButtonClass")._New(MyRadioGroup);
+        MyRadioButton1._Call("setText", "Hello");
+        StarObjectClass MyRadioButton2 = Service._GetObject("RadioButtonClass")._New(MyRadioGroup);
+        MyRadioButton2._Call("setText", "Hello");
+
+        StarObjectClass MyEdit = Service._GetObject("EditTextClass")._New(MyLayout);
+        MyEdit._Call("setLayoutParams",300,50,200,50);
+        
+        StarObjectClass MyImageButton = Service._GetObject("ImageButtonClass")._New(MyLayout);
+        MyImageButton._Call("setLayoutParams",100,100,500,300);
+        MyImageButton._Call("setImageResource",R.drawable.ic_launcher);
+        
+//        StarActivity._Free();
+    }
+}

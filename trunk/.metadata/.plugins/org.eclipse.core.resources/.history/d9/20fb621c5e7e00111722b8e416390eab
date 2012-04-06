@@ -1,0 +1,209 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.widget.TableLayout;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class TableLayoutClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init TableLayoutClass");
+
+		class StarCLETableLayout extends TableLayout implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			private List<Object> RefList;
+			public StarCLETableLayout(Context ctx,StarObjectClass In_Object){
+				super(ctx);
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "TableLayoutClass not support SetAndroidObject" );}																																																																											
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+        /* TableLayoutClass Body */
+        Service._GetObject("TableLayoutClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLETableLayout tablelayout = new StarCLETableLayout((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)tablelayout);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_activity.setContentView(tablelayout);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_viewgroup.addView(tablelayout);
+        			}
+        			self._LockGC();
+        			self._Call("decAndroidRef");  // release with parent
+        		}
+        		return;
+        	}      
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isColumnCollapsed(StarObjectClass self,int columnIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  isColumnCollapsed(StarObjectClass self,int columnIndex){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			return tablelayout.isColumnCollapsed(columnIndex);
+        		return false;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isColumnShrinkable(StarObjectClass self,int columnIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public boolean  isColumnShrinkable(StarObjectClass self,int columnIndex){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			return tablelayout.isColumnShrinkable(columnIndex);
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isColumnStretchable(StarObjectClass self,int columnIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	 
+        	public boolean  isColumnStretchable(StarObjectClass self,int columnIndex){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			return tablelayout.isColumnStretchable(columnIndex);
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isShrinkAllColumns(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	 
+        	public boolean  isShrinkAllColumns(StarObjectClass self){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			return tablelayout.isShrinkAllColumns();
+        		return false;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  isStretchAllColumns(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	 
+        	public boolean  isStretchAllColumns(StarObjectClass self){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			return tablelayout.isStretchAllColumns();
+        		return false;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  requestLayout(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	 
+        	public void  requestLayout(StarObjectClass self){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			tablelayout.requestLayout();
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setColumnShrinkable(StarObjectClass self,int columnIndex, boolean isShrinkable) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	 
+        	public void  setColumnShrinkable(StarObjectClass self,int columnIndex, boolean isShrinkable){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			tablelayout.setColumnShrinkable(columnIndex,isShrinkable);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setColumnStretchable(StarObjectClass self,int columnIndex, boolean isStretchable) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	 
+        	public void  setColumnStretchable(StarObjectClass self,int columnIndex, boolean isStretchable) {
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			tablelayout.setColumnStretchable(columnIndex,isStretchable);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setShrinkAllColumns(StarObjectClass self,boolean shrinkAllColumns) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setShrinkAllColumns(StarObjectClass self,boolean shrinkAllColumns){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			tablelayout.setShrinkAllColumns(shrinkAllColumns);
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStretchAllColumns(StarObjectClass self,boolean stretchAllColumns) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setStretchAllColumns(StarObjectClass self,boolean stretchAllColumns){
+        		TableLayout tablelayout = (TableLayout)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( tablelayout != null )
+        			tablelayout.setStretchAllColumns(stretchAllColumns);
+        	}            	
+        });    
+        
+		return true;
+	}	
+}

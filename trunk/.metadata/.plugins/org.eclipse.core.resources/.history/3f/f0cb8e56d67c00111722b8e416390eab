@@ -1,0 +1,325 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Canvas;
+import android.graphics.Bitmap;
+import android.graphics.Path;
+import android.graphics.Paint;
+import android.graphics.Shader.TileMode;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.Rect;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class ShapeDrawableClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init ShapeDrawableClass");
+
+        /* ShapeDrawableClass Body */
+        Service._GetObject("ShapeDrawableClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEGradientDrawable gradientdrawable = new StarCLEGradientDrawable((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)gradientdrawable);
+        		return;
+        	}       	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  draw(StarObjectClass self,StarObjectClass canvas){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		StarCLECanvas star_canvas = (StarCLECanvas)WrapAndroidClass.GetAndroidObject(canvas,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).draw((Canvas)star_canvas.GetAndroidObject());        		
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getChangingConfigurations(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */        	
+        	public int  getChangingConfigurations(StarObjectClass self){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			return ((GradientDrawable)gradientdrawable.GetAndroidObject()).getChangingConfigurations();
+        		return 0;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getIntrinsicHeight(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getIntrinsicHeight(StarObjectClass self){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			return ((GradientDrawable)gradientdrawable.GetAndroidObject()).getIntrinsicHeight();
+        		return 0;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getIntrinsicWidth(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getIntrinsicWidth(StarObjectClass self){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			return ((GradientDrawable)gradientdrawable.GetAndroidObject()).getIntrinsicWidth();
+        		return 0;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getOpacity(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getOpacity(StarObjectClass self){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			return ((GradientDrawable)gradientdrawable.GetAndroidObject()).getOpacity();
+        		return 0;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public boolean  getPadding(StarObjectClass self,StarObjectClass padding) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param padding is instance of RectClass
+        	 */
+        	public boolean  getPadding(StarObjectClass self,StarObjectClass padding){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null ){
+        			Rect rect=new Rect(0,0,0,0);
+        			boolean Result = ((GradientDrawable)gradientdrawable.GetAndroidObject()).getPadding(rect);
+        			if( Result == false )
+        				return false;
+        			padding._Set("left",rect.left);
+        			padding._Set("top",rect.top);
+        			padding._Set("right",rect.right);
+        			padding._Set("bottom",rect.bottom);
+        			return true;
+        		}
+        		return false;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setAlpha(StarObjectClass self,int alpha) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setAlpha(StarObjectClass self,int alpha){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setAlpha(alpha);
+        		return;
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setColor(StarObjectClass self,int argb) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setColor(StarObjectClass self,int argb){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setColor(argb);
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setCornerRadii(StarObjectClass self,StarParaPkgClass radii) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 * @param radii is set of float
+        	 */
+        	public void  setCornerRadii(StarObjectClass self,StarParaPkgClass radii){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null ){
+        			int num = radii._Getint("_Number");
+        			if( num == 0 )
+        			    return;
+        			float[] temp = new float[num];
+        			for( int i=0; i < num; i++ )
+        				temp[i] = (float)radii._Todouble(radii._Get(i));
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setCornerRadii(temp);
+        		}
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setCornerRadius(StarObjectClass self,float radius) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setCornerRadius(StarObjectClass self,float radius){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setCornerRadius(radius);
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setDither(StarObjectClass self,boolean dither) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setDither(StarObjectClass self,boolean dither){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setDither(dither);
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setGradientCenter(StarObjectClass self,float x, float y) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setGradientCenter(StarObjectClass self,float x, float y){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setGradientCenter(x,y);
+        		return;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setGradientRadius(StarObjectClass self,float gradientRadius) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setGradientRadius(StarObjectClass self,float gradientRadius){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setGradientRadius(gradientRadius);
+        		return;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setGradientType(StarObjectClass self,int gradient) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setGradientType(StarObjectClass self,int gradient){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setGradientType(gradient);
+        		return;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setShape(StarObjectClass self,int shape) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setShape(StarObjectClass self,int shape){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setShape(shape);
+        		return;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setSize(StarObjectClass self,int width, int height) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setSize(StarObjectClass self,int width, int height){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setSize(width,height);
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStroke(StarObjectClass self,int width, int color) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setStroke(StarObjectClass self,int width, int color){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setStroke(width,color);
+        		return;
+        	}   
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setStroke1(StarObjectClass self,int width, int color, float dashWidth, float dashGap) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setStroke1(StarObjectClass self,int width, int color, float dashWidth, float dashGap){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setStroke(width,color,dashWidth,dashGap);
+        		return;
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  setUseLevel(StarObjectClass self,boolean useLevel) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setUseLevel(StarObjectClass self,boolean useLevel){
+        		StarCLEGradientDrawable gradientdrawable = (StarCLEGradientDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( gradientdrawable != null && gradientdrawable.GetAndroidObject() != null )
+        			((GradientDrawable)gradientdrawable.GetAndroidObject()).setUseLevel(useLevel);
+        		return;
+        	}       	
+        });    
+        
+		return true;
+	}	
+}

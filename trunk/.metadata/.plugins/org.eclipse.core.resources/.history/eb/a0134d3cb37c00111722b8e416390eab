@@ -1,0 +1,235 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Canvas;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class BitmapDrawableClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init BitmapDrawableClass");
+
+        /* BitmapDrawableClass Body */
+        Service._GetObject("BitmapDrawableClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEBitmapDrawable bimapdrawable = new StarCLEBitmapDrawable((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)bimapdrawable);
+        		return;
+        	}        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  draw(StarObjectClass self,StarObjectClass canvas){
+        		StarCLEBitmapDrawable bimapdrawable = (StarCLEBitmapDrawable)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		Canvas star_canvas = (Canvas)WrapAndroidClass.GetAndroidObject(canvas,"AndroidObject");
+        		if( bimapdrawable != null )
+        			bimapdrawable.draw(star_canvas);        		
+        	}
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public Bitmap  getBitmap(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getChangingConfigurations(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public Drawable.ConstantState  getConstantState(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getGravity(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getIntrinsicHeight(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getIntrinsicWidth(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getOpacity(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public Paint  getPaint(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public Shader.TileMode  getTileModeX(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public Shader.TileMode  getTileModeY(StarObjectClass self) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setAlpha(StarObjectClass self,int alpha) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setAntiAlias(StarObjectClass self,boolean aa) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setColorFilter(StarObjectClass self,ColorFilter cf) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setDither(StarObjectClass self,boolean dither) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setFilterBitmap(StarObjectClass self,boolean filter) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setGravity(StarObjectClass self,int gravity) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setTargetDensity(StarObjectClass self,int density) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setTargetDensity1(StarObjectClass self,Canvas canvas) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setTileModeX(StarObjectClass self,Shader.TileMode mode) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setTileModeXY(StarObjectClass self,Shader.TileMode xmode, Shader.TileMode ymode) 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void  draw(StarObjectClass self,StarObjectClass canvas) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public void  setTileModeY(StarObjectClass self,Shader.TileMode mode)          	
+        });    
+        
+		return true;
+	}	
+}

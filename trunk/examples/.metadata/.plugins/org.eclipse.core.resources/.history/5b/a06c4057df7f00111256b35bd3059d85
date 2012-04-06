@@ -1,0 +1,24 @@
+package com.wrapandroid.cexample;
+
+import android.os.Bundle;
+import com.srplab.wrapandroid.*; 
+
+public class CexampleActivity extends WrapAndroidActivity {	
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    	DumpInfoFlag = true; 
+        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.main);
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode1.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode2.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode3.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode4.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode5.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode6.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode7.so");
+        //StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode8.so");
+        StarActivity._Call("DoFile","","/data/data/com.wrapandroid.cexample/lib/libCode9.so");
+    }
+}

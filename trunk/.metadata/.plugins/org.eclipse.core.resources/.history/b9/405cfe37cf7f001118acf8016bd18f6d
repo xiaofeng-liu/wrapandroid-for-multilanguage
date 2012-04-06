@@ -1,0 +1,36 @@
+package com.srplab.wrapandroid;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Canvas;
+import android.graphics.Path;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+class StarCLEToast extends Toast implements BasicAndroidInterface{
+	private BasicAndroidClass BasicAndroidObject;    
+	private List<Object> RefList;
+	public StarCLEToast(Context ctx,StarObjectClass In_Object){
+		super(ctx);
+		BasicAndroidObject = new BasicAndroidClass();
+		BasicAndroidObject.setStarObject(In_Object);
+		RefList = new ArrayList<Object>();
+	}
+	public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};  
+	public Object GetAndroidObject(){return this;}
+	public void SetAndroidObject(Object object){}
+	public void AddRef(Object object){RefList.add(object);}
+	public void DelRef(Object object){RefList.remove(object);}
+	protected void finalize(){
+		StarObjectClass starobject = BasicAndroidObject.getStarObject();
+		if( starobject != null )
+			starobject._Free();
+	}			
+}

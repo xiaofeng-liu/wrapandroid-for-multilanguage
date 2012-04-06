@@ -1,0 +1,26 @@
+package com.srplab.wrapandroid;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.shapes.Shape;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEShape implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public Shape shape;
+			public StarCLEShape(Context ctx,StarObjectClass In_Object){
+				shape = new Shape();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return shape;}
+			public void SetAndroidObject(Object object){shape=(Shape)object;}																																																																														
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}

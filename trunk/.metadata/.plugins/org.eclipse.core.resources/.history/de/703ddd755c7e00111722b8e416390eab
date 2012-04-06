@@ -1,0 +1,27 @@
+package com.srplab.wrapandroid;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.os.Bundle;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+class StarCLEBundle implements BasicAndroidInterface{
+	private BasicAndroidClass BasicAndroidObject;         			        			
+	public Bundle bundle;
+	public StarCLEBundle(Context ctx,StarObjectClass In_Object){
+		super();
+		bundle = null;
+		BasicAndroidObject = new BasicAndroidClass();
+		BasicAndroidObject.setStarObject(In_Object);
+	}
+	public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+	public Object GetAndroidObject(){return bundle;}
+	public void SetAndroidObject(Object object){bundle=(Bundle)object;}																																																																												
+	protected void finalize(){
+		StarObjectClass starobject = BasicAndroidObject.getStarObject();
+		if( starobject != null )
+			starobject._Free();
+	}			
+}	

@@ -1,0 +1,644 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**-------------------------------------------------------------------
+ * @author lhm
+ *
+ * classes relations :
+ * ViewClass-->ViewGroupClass-->AbsoluteLayoutClass
+ *                           -->LinearLayoutClass   -->RadioGroupClass
+ *          -->TextViewClass -->EditTextClass
+ *                           -->ButtonClass-->CompoundButtonClass-->RadioButtonClass
+ *                                                               -->CheckBoxClass
+ *          -->ImageViewClass-->ImageButtonClass                                                              
+ *                                  
+ */
+
+public class WrapAndroidClass{
+	/**  common function 
+	 * 
+	 * @param assetManager
+	 * @param SrvGroup
+	 * @return
+	 */
+	static public void TriggerViewEvent(StarSrvGroupClass SrvGroup,View v){
+       	//--find srp object from view object, we have to trace each 
+       	StarServiceClass Service = SrvGroup._GetServiceEx("SRPWrapAndroidEngine","root", "123");
+       	StarObjectClass viewclass = Service._GetObject("ViewClass");
+       	StarQueryRecordClass record = SrvGroup._NewQueryRecord();
+       	StarObjectClass starview;
+        	
+       	starview = viewclass._FirstInst(record);
+       	while( starview != null ){       		
+       		if( starview._Getbool("TrigerEventFlag") == true && starview._Get("AndroidObject") == v )
+       			break;
+       		starview = viewclass._NextInst(record);
+       	}
+       	if( starview != null ){
+       		starview._ProcessEvent("onClick");
+       	}
+	}	
+		/** Init function
+	 * 
+	 * @param assetManager
+	 * @param SrvGroup
+	 * @return
+	 */
+	static public boolean Init(AssetManager assetManager,StarSrvGroupClass SrvGroup){
+		final StarSrvGroupClass MySrvGroup = SrvGroup;
+        try{
+        	String xmlbuf;
+        	
+	       	InputStream dataSource = assetManager.open("SRPWrapAndroidEngine.xml");
+	       	int size=dataSource.available();
+	       	byte[] buffer=new byte[size]; 
+	       	dataSource.read(buffer); 
+	       	dataSource.close();        
+	       	xmlbuf=new String(buffer);
+	       	SrvGroup._ImportServiceFromXmlBuf(xmlbuf, true);
+	    }
+	    catch(IOException e ){
+	    	return false;
+	    }   	      
+        //----create functions for each class
+        final StarServiceClass Service = SrvGroup._GetServiceEx("SRPWrapAndroidEngine","root", "123");
+        /** ActivityClass Body */
+        Service._GetObject("ActivityClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass activityclass = Service._GetObject("ActivityClass");        		
+        		//---resource table
+        		Hashtable<String,Integer> ResourceTale;        		
+        		ResourceTale = (Hashtable<String,Integer>)activityclass._Get("ResourceTable");
+        		if( ResourceTale == null ){
+        			ResourceTale = new Hashtable<String,Integer>();
+        			activityclass._Set("ResourceTable",ResourceTale);
+        		}   
+        		//---activityclass stack
+        		Stack<StarObjectClass> stack;
+        		stack = (Stack<StarObjectClass>)activityclass._Get("ActivityStack");
+        		if( stack == null ){
+        			stack = new Stack<StarObjectClass>();
+        			activityclass._Set("ActivityStack",stack);
+        		}           		    			
+    			return null;
+        	}
+        	
+        	/** pushActivity function */
+        	public void pushActivity(StarObjectClass self,StarObjectClass activity){
+               	StarObjectClass activityclass = Service._GetObject("ActivityClass");
+               	Stack<StarObjectClass> stack;
+               	stack = (Stack<StarObjectClass>)activityclass._Get("ActivityStack");
+               	stack.push(activity);
+        	}  
+        	/** popActivity function */
+        	public StarObjectClass popActivity(StarObjectClass self){
+               	StarObjectClass activityclass = Service._GetObject("ActivityClass");
+               	Stack<StarObjectClass> stack;
+               	stack = (Stack<StarObjectClass>)activityclass._Get("ActivityStack");
+               	return stack.pop();
+        	}         	
+        	/** getCurrent function */
+        	public StarObjectClass getCurrent(StarObjectClass self){
+               	StarObjectClass activityclass = Service._GetObject("ActivityClass");
+               	Stack<StarObjectClass> stack;
+               	stack = (Stack<StarObjectClass>)activityclass._Get("ActivityStack");
+               	return stack.lastElement();
+        	}   
+        	/** setResource function */
+        	public void setResource(StarObjectClass self,String ResourceName,int ResourceID){
+        		Hashtable<String,Integer> ResourceTale;
+        		
+               	StarObjectClass activityclass = Service._GetObject("ActivityClass");        		
+        		ResourceTale = (Hashtable<String,Integer>)activityclass._Get("ResourceTable");
+        		ResourceTale.put(ResourceName,ResourceID);
+        	}          	
+        	/** getResource function */
+        	public int getResource(StarObjectClass self,String ResourceName){
+        		Hashtable<String,Integer> ResourceTale;
+        		
+        		StarObjectClass activityclass = Service._GetObject("ActivityClass");
+        		ResourceTale = (Hashtable<String,Integer>)activityclass._Get("ResourceTable");
+        		return (int)ResourceTale.get(ResourceName);
+        	}              	
+        });  
+        
+        /** ViewClass Body */
+        Service._GetObject("ViewClass")._Assign(new StarObjectClass(){ 
+        	/** _OnDestroy Event */
+        	public Object[] _OnDestroy(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		if( parent != null ){
+        			View view = (View)self._Get("AndroidObject");
+        			if( activity != parent ){
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.removeView(view);
+        			}
+        		}
+           		self._Set("AndroidObject", (Object)null);       
+           		self._Set("TrigerEventFlag",false);        			
+           		return null;        		
+        	}         	
+        	/** getActivity function */
+        	public StarObjectClass getActivity(StarObjectClass self){
+        		StarObjectClass activity = Service._GetObject("ActivityClass");  
+        		return (StarObjectClass)activity._Call("getCurrent");
+        	}   
+        	/** setLayoutParams function */
+        	public void setLayoutParams(StarObjectClass self,int width,int height,int x,int y){
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		if( parent != null && parent == activity )
+        			return;  //may be content view        		
+        		View view = (View)self._Get("AndroidObject");
+        		LayoutParams par = (LayoutParams)view.getLayoutParams();
+        		par.width = width;
+        		par.height = height;
+        		par.x = x;
+        		par.y = y;
+        		view.setLayoutParams(par);
+        	}
+        	/** setLayoutParamsEx function */
+        	public void setLayoutParamsEx(StarObjectClass self,int Type,double width,double height,double x,double y){        		
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		if( parent != null && parent == activity )
+        			return;  //may be content view
+        		Activity android_activity = (Activity)self._Get("AndroidObject");
+        		DisplayMetrics metrics = new DisplayMetrics();
+        		android_activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        		View view = (View)self._Get("AndroidObject");
+        		LayoutParams par = (LayoutParams)view.getLayoutParams();        		        		
+        		switch( Type ){
+        		case 0 :  //px
+            		par.width = (int)width;
+            		par.height = (int)height;
+            		par.x = (int)x;
+            		par.y = (int)y;
+            		break;
+        		case 1 :  //pt
+        			par.width = (int)(width * metrics.xdpi * (1.0f/72)); 
+        			par.height = (int)(height * metrics.xdpi * (1.0f/72));
+        			par.x = (int)(x * metrics.xdpi * (1.0f/72));
+        			par.y = (int)(y * metrics.xdpi * (1.0f/72));
+        			break;
+        		default :  //sp
+            		par.width = (int)(width * metrics.scaledDensity);
+            		par.height = (int)(height * metrics.scaledDensity);
+            		par.x = (int)(x * metrics.scaledDensity);
+            		par.y = (int)(y * metrics.scaledDensity);
+            		break;        			
+        		}
+        		view.setLayoutParams(par);
+        	}        	        	
+        });
+        
+        /** LinearLayoutClass Body */
+        Service._GetObject("LinearLayoutClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");
+        		StarObjectClass linearlayoutclass = (StarObjectClass)Service._Get("LinearLayoutClass");
+        		if( linearlayoutclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;        		
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+
+        		LinearLayout layout = new LinearLayout((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)layout);
+        		self._Set("TrigerEventFlag",true);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(layout);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(layout);
+        			}
+        		}
+        		return null;
+        	}   
+        	/** setOrientation function */
+        	public void setOrientation(StarObjectClass self,int orientation){
+        		LinearLayout layout = (LinearLayout)self._Get("AndroidObject");
+        		System.out.println(layout);
+        	}
+        });    
+        
+        /** RadioGroup Body */
+        Service._GetObject("RadioGroupClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");
+        		StarObjectClass radiobgroupclass = (StarObjectClass)Service._Get("RadioGroupClass");
+        		if( radiobgroupclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;        		
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		RadioGroup layout = new RadioGroup((Activity)activity._Get("AndroidObject"));
+        		/**------set click call back function -------*/
+        		layout.setOnCheckedChangeListener(new OnCheckedChangeListener(){ 
+        			public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    	//--find srp object from view object, we have to trace each 
+                    	StarObjectClass radiogroupclass = Service._GetObject("RadioGroupClass");
+                    	StarQueryRecordClass record = MySrvGroup._NewQueryRecord();
+                    	StarObjectClass starradiogroup;
+                    	
+                    	starradiogroup = radiogroupclass._FirstInst(record);
+                    	while( starradiogroup != null ){
+                    		if( starradiogroup._Get("AndroidObject") == group )
+                    			break;
+                    		starradiogroup = radiogroupclass._NextInst(record);
+                    	}
+                    	if( starradiogroup != null ){
+                    		StarObjectClass starradiobutton;
+                    		
+                    		starradiobutton = starradiogroup._GetChildByID("ViewQueue",0);
+                    		while( starradiobutton != null ){
+                      		    if(checkedId == ((RadioButton)starradiobutton._Get("AndroidObject")).getId())
+                      		    	break;
+                      		    starradiobutton = (StarObjectClass)starradiobutton._Get("_Next");
+                    		}
+                    		if( starradiobutton != null )
+                		        starradiogroup._ProcessEvent("onCheckedChanged",starradiobutton._Get("_ID"));
+                    	}
+                    } 
+                });        		        		
+        		self._Set("AndroidObject", (Object)layout);
+        		self._Set("TrigerEventFlag",true);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(layout);
+        			}else{	
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(layout);
+        			}
+        		}
+        		return null;
+        	}   
+        }); 
+        
+        /** AbsoluteLayoutClass Body */
+        Service._GetObject("AbsoluteLayoutClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		AbsoluteLayout layout = new AbsoluteLayout((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)layout);
+        		self._Set("TrigerEventFlag",true);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(layout);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(layout);
+        			}
+        		}
+        		return null;
+        	}   
+        });   
+        
+        /** TextViewClass Body */
+        Service._GetObject("TextViewClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass textviewclass = (StarObjectClass)Service._Get("TextViewClass");
+        		if( textviewclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		TextView textview = new TextView((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)textview);
+        		self._Set("TrigerEventFlag",true);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(textview);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(textview);
+        			}
+        		}
+        		return null;
+        	}         
+        	/** setText function */
+        	public void setText(StarObjectClass self,String Text){
+        		TextView textview = (TextView)self._Get("AndroidObject");
+        		if( textview != null )
+        			textview.setText(Text);
+        	}
+        	/** getText function */
+        	public String setText(StarObjectClass self){
+        		TextView textview = (TextView)self._Get("AndroidObject");
+        		if( textview == null )
+        			return null;
+        		String Value = textview.getText().toString();
+        		return Value;
+        	}        	
+        });         
+        
+        /** EditTextClass Body */
+        Service._GetObject("EditTextClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass edittextclass = (StarObjectClass)Service._Get("EditTextClass");
+        		if( edittextclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		EditText edittext = new EditText((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)edittext);
+        		self._Set("TrigerEventFlag",true);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(edittext);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(edittext);
+        			}
+        		}
+        		return null;
+        	}             	
+        });
+        
+        /** ButtonClass Body */
+        Service._GetObject("ButtonClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");
+        		StarObjectClass buttonclass = (StarObjectClass)Service._Get("ButtonClass");
+        		if( buttonclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;        		        		
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		Button button = new Button((Activity)activity._Get("AndroidObject"));        		
+        		self._Set("AndroidObject", (Object)button);
+        		self._Set("TrigerEventFlag",true);
+        		/**------set click call back function -------*/
+        		button.setOnClickListener(new View.OnClickListener(){ 
+                    public void onClick(View v) {
+                    	TriggerViewEvent(MySrvGroup,v);
+                    } 
+                });      
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(button);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(button);
+        			}
+        		}
+        		return null;
+        	}        	
+        });    
+        
+        /** CompoundButtonClass Body */
+        Service._GetObject("CompoundButtonClass")._Assign(new StarObjectClass(){
+        	/** isChecked function */
+        	public boolean isChecked(StarObjectClass self){
+        		CompoundButton button = (CompoundButton)self._Get("AndroidObject");
+        		if( button == null )
+        			return false;
+        		return button.isChecked();
+        	}        	          	
+        });  
+        
+        /** RadioButtonClass Body */
+        Service._GetObject("RadioButtonClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass radiobuttonclass = (StarObjectClass)Service._Get("RadioButtonClass");
+        		if( radiobuttonclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		RadioButton radiobuton = new RadioButton((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)radiobuton);
+        		self._Set("TrigerEventFlag",true);
+        		/**------set click call back function -------*/
+        		radiobuton.setOnClickListener(new View.OnClickListener(){ 
+                    public void onClick(View v) {
+                    	TriggerViewEvent(MySrvGroup,v);
+                    } 
+                });      
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(radiobuton);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(radiobuton);
+        			}
+        		}
+        		return null;
+        	}             	
+        });   
+        
+        /** CheckBoxClass Body */
+        Service._GetObject("CheckBoxClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass checkboxclass = (StarObjectClass)Service._Get("CheckBoxClass");
+        		if( checkboxclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		CheckBox checkbox = new CheckBox((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)checkbox);
+        		self._Set("TrigerEventFlag",true);
+        		/**------set click call back function -------*/
+        		checkbox.setOnClickListener(new View.OnClickListener(){ 
+                    public void onClick(View v) {
+                    	TriggerViewEvent(MySrvGroup,v);
+                    } 
+                });
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(checkbox);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(checkbox);
+        			}
+        		}
+        		return null;
+        	}             	
+        });
+        
+        /** ImageViewClass Body */
+        Service._GetObject("ImageViewClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass checkboxclass = (StarObjectClass)Service._Get("ImageViewClass");
+        		if( checkboxclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		ImageView imageview = new ImageView((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)imageview);
+        		self._Set("TrigerEventFlag",true);
+        		/**------set click call back function -------*/
+        		imageview.setOnClickListener(new View.OnClickListener(){ 
+                    public void onClick(View v) {
+                    	TriggerViewEvent(MySrvGroup,v);
+                    } 
+                });        	
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(imageview);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(imageview);
+        			}
+        		}
+        		return null;
+        	}
+        	/** setImageResource function */
+        	public void setImageResource(StarObjectClass self,int resid){
+        		ImageView imagview = (ImageView)self._Get("AndroidObject");
+        		if( imagview != null )
+        			imagview.setImageResource(resid);
+        	} 
+        	/** setImageURI function */
+        	public void setImageURI(StarObjectClass self,String uri){
+        		ImageView imagview = (ImageView)self._Get("AndroidObject");
+        		if( imagview == null )
+        			return;
+        		Uri imgUri=Uri.parse(uri);
+        		imagview.setImageURI(imgUri);
+        	}         	
+        });        
+        
+        /** ImageButtonClass Body */
+        Service._GetObject("ImageButtonClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass imagebuttonclass = (StarObjectClass)Service._Get("ImageButtonClass");
+        		if( imagebuttonclass._IsDirectInst(self) == false )  //maybe instance's instance, etc.
+        			return null;
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		ImageButton imagebutton = new ImageButton((Activity)activity._Get("AndroidObject"));
+        		self._Set("AndroidObject", (Object)imagebutton);
+        		self._Set("TrigerEventFlag",true);
+        		/**------set click call back function -------*/
+        		imagebutton.setOnClickListener(new View.OnClickListener(){ 
+                    public void onClick(View v) {
+                    	TriggerViewEvent(MySrvGroup,v);
+                    } 
+                });        		
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)parent._Get("AndroidObject");
+        				android_activity.setContentView(imagebutton);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)parent._Get("AndroidObject");
+        				android_viewgroup.addView(imagebutton);
+        			}
+        		}
+        		return null;
+        	}         	
+        });                
+        
+        /** AdapterClass Body */
+        Service._GetObject("AdapterClass")._Assign(new StarObjectClass(){
+        	/** _OnCreate Event */
+        	public Object[] _OnCreate(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass adapterclass = (StarObjectClass)Service._Get("AdapterClass");
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+
+        		class SectionedAdapter extends BaseAdapter {
+        			//----find cle object from android object
+        			private StarObjectClass getStarObject(){
+        				StarObjectClass adapterclass = Service._GetObject("AdapterClass");
+        				StarQueryRecordClass QueryRecord;
+        				StarObjectClass adapter;
+        				
+        				QueryRecord = MySrvGroup._NewQueryRecord();
+        				adapter = adapterclass._FirstInst(QueryRecord);
+        				while( adapter != null ){
+        					SectionedAdapter which;
+        					which = (SectionedAdapter)adapter._Get("AndroidObject");
+        					if( which == this )
+        						return adapter;
+        					adapter = adapterclass._NextInst(QueryRecord);
+        				}
+        				return null;
+        			}
+        			
+        			public SectionedAdapter(){
+        				super();
+        			}
+        			public int  getCount(){
+        				StarObjectClass adapter = getStarObject();
+        				if( adapter == null )
+        					return 0;
+        				return adapter._Toint(adapter._Call("getCount"));
+        			}
+        			public Object getItem(int position){
+        				return null;
+        			}
+        			public long  getItemId(int position){
+        				return 0;
+        			}
+        			public int  getItemViewType(int position){
+        				return 0;
+        			}
+        			public View  getView(int position, View convertView, ViewGroup parent){
+        				return null;
+        			}
+        			public int  getViewTypeCount(){
+        				return 0;
+        			}
+        			public boolean  isEmpty(){
+        				return false;
+        			}
+        		};        		        		
+        		SectionedAdapter myadapter = new SectionedAdapter();
+        		self._Set("AndroidObject", (Object)myadapter);
+        		return null;
+        	} 
+        	public Object[] _OnDestroy(Hashtable Ev){
+        		StarObjectClass self = (StarObjectClass)Ev.get("_DesObject");        		        		
+        		StarObjectClass adapterclass = (StarObjectClass)Service._Get("AdapterClass");
+           		self._Set("AndroidObject", (Object)null);       
+           		return null;
+        	}
+        });        
+		return true;
+	}	
+}

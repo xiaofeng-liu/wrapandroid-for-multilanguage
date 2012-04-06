@@ -1,0 +1,272 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class ProgressBarClass{
+	/**
+	 * @note do not call Init method directly
+	 * 
+	 *  you can use NameValue "defStyle" of class object to set the ProgressBar style before created
+	 *  
+	 *  for example :
+	 *  
+	 *  StarObjectClass MyProgressBarClass = Service._GetObject("ProgressBarClass");\n
+	 *  MyProgressBarClass._SetNameInt("defStyle", android.R.attr.progressBarStyleHorizontal,true);\n
+	 *  StarObjectClass MyProgressBar = Service._GetObject("ProgressBarClass")._New(MyLayout);\n
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init ProgressBarClass");
+
+		class StarCLEProgressBar extends ProgressBar implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;   
+			private List<Object> RefList;
+			public StarCLEProgressBar(Context ctx,StarObjectClass In_Object,int defStyle){
+				super(ctx,null,defStyle);
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public StarCLEProgressBar(Context ctx,StarObjectClass In_Object){
+				super(ctx);
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}			
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return this;}
+			public void SetAndroidObject(Object object){SrvGroup._PrintError(1, "ProgressBarClass not support SetAndroidObject" );}
+			public void AddRef(Object object){RefList.add(object);}
+			public void DelRef(Object object){RefList.remove(object);}
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
+		
+        /* ProgressBarClass Body */
+        Service._GetObject("ProgressBarClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");   
+        		StarObjectClass classobject = Service._GetObject("ProgressBarClass");
+        		int style = classobject._GetNameInt("defStyle",0);
+        		StarCLEProgressBar starcleobject;
+        		if( style == 0 )
+        			starcleobject = new StarCLEProgressBar((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);
+        		else
+        			starcleobject = new StarCLEProgressBar((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self,style);
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)starcleobject);
+        		if( parent != null ){
+        			if( activity == parent ){
+        				Activity android_activity = (Activity)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_activity.setContentView(starcleobject);
+        			}else{
+        				ViewGroup android_viewgroup = (ViewGroup)WrapAndroidClass.GetAndroidObject(parent,"AndroidObject");
+        				android_viewgroup.addView(starcleobject);
+        			}
+        			self._LockGC();
+        			self._Call("decAndroidRef");  // release with parent
+        		}
+        	}
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setMax(StarObjectClass self,int max) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void setMax(StarObjectClass self,int max){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		androidobject.setMax(max);
+        		return;
+        	}    
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setProgress(StarObjectClass self,int progress) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void setProgress(StarObjectClass self,int progress){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		androidobject.setProgress(progress);
+        		return;
+        	}  
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setVisibility(StarObjectClass self,int v) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void setVisibility(StarObjectClass self,int v){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		androidobject.setVisibility(v);
+        		return;
+        	}  
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setIndeterminate(StarObjectClass self,boolean indeterminate) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void setIndeterminate(StarObjectClass self,boolean indeterminate){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		androidobject.setIndeterminate(indeterminate);
+        		return;
+        	}
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setIndeterminateDrawable(StarObjectClass self,int resid) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void setIndeterminateDrawable(StarObjectClass self,int resid){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		Activity androidactivity = (Activity)activity._Get("AndroidObject");
+        		androidobject.setIndeterminateDrawable(androidactivity.getResources().getDrawable(resid));
+        		return;
+        	}        
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void setProgressDrawable(StarObjectClass self,int resid) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void setProgressDrawable(StarObjectClass self,int resid){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");
+        		Activity androidactivity = (Activity)activity._Get("AndroidObject");
+        		androidobject.setProgressDrawable(androidactivity.getResources().getDrawable(resid));
+        		return;
+        	}      
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void incrementProgressBy(StarObjectClass self,int diff) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void incrementProgressBy(StarObjectClass self,int diff){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		androidobject.incrementProgressBy(diff);
+        		return;
+        	}
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public void incrementSecondaryProgressBy(StarObjectClass self,int diff) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public void incrementSecondaryProgressBy(StarObjectClass self,int diff){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return;    
+        		androidobject.incrementSecondaryProgressBy(diff);
+        		return;
+        	}
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int getProgress(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public int getProgress(StarObjectClass self){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return 0;    
+        		return androidobject.getProgress();
+        	}        	
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int getSecondaryProgress(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public int getSecondaryProgress(StarObjectClass self){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return 0;    
+        		return androidobject.getSecondaryProgress();
+        	}
+        	
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int getMax(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+             */
+        	public int getMax(StarObjectClass self){
+        		ProgressBar androidobject = (ProgressBar)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( androidobject == null )
+        			return 0;    
+        		return androidobject.getMax();
+        	}        	
+        });         
+        
+		return true;
+	}	
+}

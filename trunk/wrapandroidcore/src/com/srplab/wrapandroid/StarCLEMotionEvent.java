@@ -1,0 +1,37 @@
+package com.srplab.wrapandroid;
+
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.webkit.WebSettings;
+import android.view.MotionEvent;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEMotionEvent implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public MotionEvent motionevent;
+			private List<Object> RefList;
+			public StarCLEMotionEvent(Context ctx,StarObjectClass In_Object){
+				motionevent = null;
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return motionevent;}
+			public void SetAndroidObject(Object object){motionevent=(MotionEvent)object;}
+			public void AddRef(Object object){RefList.add(object);}
+			public void DelRef(Object object){RefList.remove(object);}
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+				if( motionevent != null )
+					motionevent.recycle();
+			}			
+		}

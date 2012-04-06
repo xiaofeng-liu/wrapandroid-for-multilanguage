@@ -1,0 +1,599 @@
+package com.srplab.wrapandroid;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.widget.*;
+import android.view.*;
+import android.widget.LinearLayout;
+import android.widget.AbsoluteLayout.LayoutParams;
+import android.util.*;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.Matrix;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+
+import com.srplab.www.starcore.*;
+
+/**
+ * 
+ * @author srplab
+ *
+ */
+
+public class MotionEventClass{
+	/**
+	 * @note do not call Init method directly
+	 */	
+	static public boolean Init(StarServiceClass In_Service,StarSrvGroupClass In_SrvGroup,boolean In_DumpInformationFlag){
+		final StarSrvGroupClass SrvGroup = In_SrvGroup;
+		final StarServiceClass Service = In_Service;	
+		final boolean DumpInformationFlag = In_DumpInformationFlag;
+		WrapAndroidClass.DumpInformation(SrvGroup, DumpInformationFlag, "init MotionEventClass");
+
+        /* MotionEventClass Body */
+        Service._GetObject("MotionEventClass")._Assign(new StarObjectClass(){
+        	/* onCreateAndroid function */
+        	public void onCreateAndroid( StarObjectClass self ){
+        		StarObjectClass parent = (StarObjectClass)self._Get("_Parent");
+        		StarObjectClass activity = (StarObjectClass)self._Call("getActivity");        		
+        		StarCLEMotionEvent motionevent = new StarCLEMotionEvent((Activity)WrapAndroidClass.GetAndroidObject(activity,"AndroidObject"),self);        		
+        		WrapAndroidClass.SetAndroidObject(self,"AndroidObject",(Object)motionevent);
+        		return;
+        	}  
+        	/* onDestroyAndroid function */
+        	public void onDestroyAndroid( StarObjectClass self ){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null )
+        			return;
+        		if( motionevent.motionevent != null )
+        			motionevent.motionevent.recycle();
+        		motionevent.motionevent = null;
+        		return;
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  findPointerIndex(StarObjectClass self,int pointerId){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	} 
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getAction(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getActionIndex(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getActionMasked(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getAxisValue(StarObjectClass self,int axis){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getAxisValue1(StarObjectClass self,int axis, int pointerIndex){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getButtonState(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getDeviceId(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public long  getDownTime(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getEdgeFlags(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public long  getEventTime(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getFlags(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalAxisValue(StarObjectClass self,int axis, int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalAxisValue1(StarObjectClass self,int axis, int pointerIndex, int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public long  getHistoricalEventTime(StarObjectClass self,int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalOrientation(StarObjectClass self,int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalOrientation1(StarObjectClass self,int pointerIndex, int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalPressure(StarObjectClass self,int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalPressure1(StarObjectClass self,int pointerIndex, int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalSize(StarObjectClass self,int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  findPointerIndex(StarObjectClass self,int pointerId) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalSize1(StarObjectClass self,int pointerIndex, int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.findPointerIndex(pointerId);
+        	}    
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getHistoricalX(StarObjectClass self,int pos) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalX(StarObjectClass self,int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getHistoricalX(pos);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getHistoricalX1(StarObjectClass self,int pointerIndex, int pos) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalX1(StarObjectClass self,int pointerIndex, int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getHistoricalX(pointerIndex,pos);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getHistoricalY(StarObjectClass self,int pos) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalY(StarObjectClass self,int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getHistoricalY(pos);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getHistoricalY1(StarObjectClass self,int pointerIndex, int pos) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getHistoricalY1(StarObjectClass self,int pointerIndex, int pos){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getHistoricalY(pointerIndex,pos);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getHistorySize(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getHistorySize(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getHistorySize();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getMetaState(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getMetaState(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getMetaState();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getPointerCount(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getPointerCount(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getPointerCount();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public int  getPointerId(StarObjectClass self,int pointerIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public int  getPointerId(StarObjectClass self,int pointerIndex){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getPointerId(pointerIndex);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getPressure(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getPressure(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getPressure();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getPressure1(StarObjectClass self,int pointerIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getPressure1(StarObjectClass self,int pointerIndex){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getPressure(pointerIndex);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getRawX(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getRawX(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getRawX();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getRawY(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getRawY(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getRawY();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getSize(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getSize(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getSize();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getSize1(StarObjectClass self,int pointerIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getSize1(StarObjectClass self,int pointerIndex){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getSize(pointerIndex);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getX(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getX(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getX();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">float  getX1(StarObjectClass self,int pointerIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getX1(StarObjectClass self,int pointerIndex){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getX(pointerIndex);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getXPrecision(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getXPrecision(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getXPrecision();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getY(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getY(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getY();
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getY1(StarObjectClass self,int pointerIndex) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getY1(StarObjectClass self,int pointerIndex){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getY(pointerIndex);
+        	}  
+        	/**
+        	 * <div class="memproto">
+        	 *   <table class="memname">
+        	 *     <tr><td class="memname">public float  getYPrecision(StarObjectClass self) </td></tr>
+        	 *   </table>
+        	 * </div>
+        	 */
+        	public float  getYPrecision(StarObjectClass self){
+        		StarCLEMotionEvent motionevent = (StarCLEMotionEvent)WrapAndroidClass.GetAndroidObject(self,"AndroidObject");
+        		if( motionevent == null || motionevent.motionevent == null )
+        			return 0;
+        		return motionevent.motionevent.getYPrecision();
+        	}  
+
+        	
+        });            
+		return true;
+	}	
+}

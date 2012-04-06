@@ -1,0 +1,32 @@
+package com.srplab.wrapandroid;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.DrawableContainer;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLEDrawableContainer implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public DrawableContainer drawablecontainer;
+			private List<Object> RefList;
+			public StarCLEDrawableContainer(Context ctx,StarObjectClass In_Object){
+				drawablecontainer = new DrawableContainer();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+				RefList = new ArrayList<Object>();
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return drawablecontainer;}
+			public void SetAndroidObject(Object object){drawablecontainer=(DrawableContainer)object;}
+			public void AddRef(Object object){RefList.add(object);}
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}

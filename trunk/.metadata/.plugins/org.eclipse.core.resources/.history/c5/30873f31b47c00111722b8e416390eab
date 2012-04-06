@@ -1,0 +1,26 @@
+package com.srplab.wrapandroid;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+
+import com.srplab.www.starcore.StarObjectClass;
+
+		class StarCLECanvas implements BasicAndroidInterface{
+			private BasicAndroidClass BasicAndroidObject;    
+			public BitmapDrawable bitmapdrawable;
+			public StarCLECanvas(Context ctx,StarObjectClass In_Object){
+				bitmapdrawable = new BitmapDrawable();
+				BasicAndroidObject = new BasicAndroidClass();
+				BasicAndroidObject.setStarObject(In_Object);
+			}
+			public BasicAndroidClass getBasicAndroid(){return BasicAndroidObject;};
+			public Object GetAndroidObject(){return bitmapdrawable;}
+			public void SetAndroidObject(Object object){bitmapdrawable=(BitmapDrawable)object;}																																																																														
+			protected void finalize(){
+				StarObjectClass starobject = BasicAndroidObject.getStarObject();
+				if( starobject != null )
+					starobject._Free();
+			}			
+		}
