@@ -10,11 +10,13 @@
 a: install PythonForAndroid from http://code.google.com/p/android-scripting
 
 b: CLE may install from network by application automatically, you need only include  starcore_android_r5.jar in the project. The file is in starcore_devfiles_r5.zip, which can be download from http://code.google.com/p/cle-for-android
+
 c: Wrapandroid has two files: wrapandroid.jar and SRPWrapAndroidEngine.xml, which can be download from http:/code.google.com/p/wrapandroid-for-multilaguage/download/wrapandroid_devfiles_0_8_1.rar
 
 == 2. Begin programming ==
 
 a. Open eclipse, create a new android project, for example, “introduction”
+
 b. Add Permission, which is used to download and install cle for the application
 
 {{{
@@ -27,6 +29,7 @@ c. copy files : starcore_android_r5.jar and wrapandroid.jar into the project dir
 [http://www.srplab.com/android/wrapandroid/library.JPG]
 
 d. copy file : SRPWrapAndroidEngine.xml to assets directory.
+
 e. edit IntroductionActivity.java
 
 {{{
