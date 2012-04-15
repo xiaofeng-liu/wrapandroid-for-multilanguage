@@ -8,6 +8,7 @@
 == 1. Preparing environment. ==
 
 a: install PythonForAndroid from http://code.google.com/p/android-scripting
+
 b: CLE may install from network by application automatically, you need only include  starcore_android_r5.jar in the project. The file is in starcore_devfiles_r5.zip, which can be download from http://code.google.com/p/cle-for-android
 c: Wrapandroid has two files: wrapandroid.jar and SRPWrapAndroidEngine.xml, which can be download from http:/code.google.com/p/wrapandroid-for-multilaguage/download/wrapandroid_devfiles_0_8_1.rar
 
