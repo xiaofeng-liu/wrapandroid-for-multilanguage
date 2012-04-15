@@ -1,5 +1,5 @@
 #labels Featured
-#Writing android gui using python(introduction).
+= Writing android gui using python(introduction) =
 
 == Introduction == 
 
@@ -23,7 +23,7 @@ b. Add Permission, which is used to download and install cle for the application
 
 c. copy files : starcore_android_r5.jar and wrapandroid.jar into the project directory, and add them to java build path, as shown below.
 
-[http://www.srplab.com/Images/android/wrapandroid/library.JPG]
+[http://www.srplab.com/android/wrapandroid/library.JPG]
 
 d. copy file : SRPWrapAndroidEngine.xml to assets directory.
 e. edit IntroductionActivity.java
@@ -106,6 +106,6 @@ MyWebSettings._Free();
 
 The screenshot is as shown below:
 
-[http://www.srplab.com/Images/android/wrapandroid/introduction_screenshot.png]
+[http://www.srplab.com/android/wrapandroid/introduction_screenshot.png]
 
 examples can be download from : http://www.srplab.com/android/pythongui_introduction.rar
